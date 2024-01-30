@@ -1,6 +1,7 @@
 package com.travel.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,50 +14,38 @@ import com.travel.dao.CommentDAO;
 import com.travel.dto.CommentDTO;
 import com.travel.util.Util;
 
-@WebServlet("/comment")
-public class Comment extends HttpServlet {
+@WebServlet("/commentDel")
+public class CommentDel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Comment() {
+    public CommentDel() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8"); // 한글처리
-		HttpSession session = request.getSession(); // session 연결
+		int result = 0;
+		HttpSession session = request.getSession();
+		if(session.getAttribute("mid") != null && Util.intCheck(request.getParameter("no"))){
 		
-		if(request.getParameter("commentcontent") != null && request.getParameter("bno") != null && session.getAttribute("mid") != null ) {
-			
-			String commentcontent = request.getParameter("commentcontent"); // 댓글내용
-			
-			
-			//commentcontent = Util.removeTag(commentcontent); 
-		
-			//commentcontent = Util.addBR(commentcontent);
-			
-			String bno = request.getParameter("bno"); // 글번호
-			
-			
-			// 저장하기
 			CommentDTO dto = new CommentDTO();
-			dto.setCcomment(commentcontent);
-			dto.setTboard_no(Util.str2Int(bno)); 
 			dto.setMid((String)session.getAttribute("mid"));
-			
-			
+			dto.setCno(Util.str2Int(request.getParameter("no")));
+		
 			CommentDAO dao = new CommentDAO();
-			dao.commentWrite(dto);
+			result = dao.commentDelete(dto);
 			
-			response.sendRedirect("./detail?no="+bno);
-		} else {
-			response.sendRedirect("./login");
+		
+		PrintWriter pw = response.getWriter();
+		pw.print(result);
+		System.out.println("1"); // 되나 확인
+		
 		}
+
 	}
+	
+	
+
 }
-
-

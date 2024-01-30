@@ -2,7 +2,7 @@ package com.travel.dto;
 
 public class CommentDTO {
 	private int cno, tboard_no, mno, clike, cinout, cdel;
-	private String ccoment, cdate, mname, mid;
+	private String ccomment, cdate, mname, mid;
 	
 	public String getMname() {
 		return mname;
@@ -52,11 +52,11 @@ public class CommentDTO {
 	public void setCdel(int cdel) {
 		this.cdel = cdel;
 	}
-	public String getCcoment() {
-		return ccoment;
+	public String getCcomment() {
+		return ccomment;
 	}
-	public void setCcoment(String ccoment) {
-		this.ccoment = ccoment;
+	public void setCcomment(String ccoment) {
+		this.ccomment = ccoment;
 	}
 	public String getCdate() {
 		return cdate;
