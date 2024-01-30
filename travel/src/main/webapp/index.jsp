@@ -9,6 +9,7 @@
 <body>
 	<div>
 		<header><%@ include file="menu.jsp"%></header>
+		
 	</div>
 test 입니다ㅇㅇㅇ
 </body>

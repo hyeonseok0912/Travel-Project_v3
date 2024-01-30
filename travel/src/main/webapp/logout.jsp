@@ -16,6 +16,7 @@
 			<div>
 				<article>
 					로그아웃 하였습니다.
+					
 				</article>
 			</div>
 		</div>
