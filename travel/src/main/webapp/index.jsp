@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인덱스 변경 test</title>
 </head>
 <body>
 
