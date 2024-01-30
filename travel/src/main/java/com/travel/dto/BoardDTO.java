@@ -1,7 +1,7 @@
 package com.travel.dto;
 
 public class BoardDTO {
-	private int no, inout, del, count, like; 
+	private int no, inout, del, count, like;
 	private String title, content, write, date;
 	
 	public int getNo() {

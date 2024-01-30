@@ -26,7 +26,7 @@ public class BoardDAO extends AbstractDAO{
 			while (rs.next()) {
 				BoardDTO e = new BoardDTO();
 				e.setNo(rs.getInt("tboard_no"));
-				e.setTitle(rs.getString("tboard_title")); 
+				e.setTitle(rs.getString("tboard_title"));
 				e.setWrite(rs.getString("tboard_write"));
 				e.setCount(rs.getInt("tboard_count"));
 				e.setDate(rs.getString("tboard_date"));
