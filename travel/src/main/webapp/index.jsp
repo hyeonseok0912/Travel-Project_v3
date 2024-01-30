@@ -7,6 +7,6 @@
 <title>인덱스 변경 test123</title>
 </head>
 <body>
-
+test 입니다
 </body>
 </html>
