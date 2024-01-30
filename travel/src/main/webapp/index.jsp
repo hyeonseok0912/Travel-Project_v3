@@ -7,6 +7,9 @@
 <title>인덱스 변경 ttt</title>
 </head>
 <body>
+	<div>
+		<header><%@ include file="menu.jsp"%></header>
+	</div>
 test 입니다ㅇㅇㅇ
 </body>
 </html>
