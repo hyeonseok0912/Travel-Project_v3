@@ -45,4 +45,5 @@ public class MemberDTO {
 	public void setMdate(String mdate) {
 		this.mdate = mdate;
 	}
+	
 }
