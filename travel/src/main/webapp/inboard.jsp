@@ -10,6 +10,9 @@
 <title>국내 게시판</title>
 </head>
 <body>
+	<head>
+	<%@ include file="menu.jsp" %>
+	</head>
    <article>
       <div class="title">
       <h1>국내 여행 게시판</h1>
@@ -24,6 +27,14 @@
                         <th>추천</th>
                         <th>조회</th>
                         <th>날짜</th>
+                     </tr>
+                     <tr>
+                     	<td>${list }</td>
+                     	<td></td>
+                     	<td></td>
+                     	<td></td>
+                     	<td></td>
+                     	<td></td>
                      </tr>
                   </tbody>
                </table>
