@@ -38,9 +38,9 @@ public class Comment extends HttpServlet {
 
 			String commentcontent = request.getParameter("commentcontent"); // 댓글내용
 
-			commentcontent = Util.removeTag(commentcontent);
+			//commentcontent = Util.removeTag(commentcontent);
 
-			commentcontent = Util.addBR(commentcontent);
+			//commentcontent = Util.addBR(commentcontent);
 
 			String bno = request.getParameter("bno"); // 글번호
 
