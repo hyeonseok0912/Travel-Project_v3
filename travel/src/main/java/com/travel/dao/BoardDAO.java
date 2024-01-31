@@ -137,4 +137,27 @@ public class BoardDAO extends AbstractDAO {
 		
 		return list;
 	}
+	//게시판 글 작성하기
+	public int write(BoardDTO dto) {
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write) "
+				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?))";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getInout());
+			pstmt.setString(4, dto.getMid());
+			pstmt.setString(5, dto.getMname());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(null, pstmt, con);
+		}
+		return result;
+	}
 }
