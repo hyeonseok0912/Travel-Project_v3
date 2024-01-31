@@ -75,4 +75,32 @@ public class BoardDAO extends AbstractDAO {
 		return list;
 	}
 
+	public BoardDTO detail(int no) {
+		BoardDTO dto = new BoardDTO();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, b.tboard_date, (SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count "
+				+ "FROM tboard b JOIN tmember m ON b.mno=m.mno "
+				+ "WHERE b.tboard_no=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				dto.setNo(rs.getInt("tboard_no"));
+				dto.setTitle(rs.getString("tboard_title"));
+				dto.setContent(rs.getString("tboard_content"));
+				dto.setWrite(rs.getString("tboard_write"));
+				dto.setDate(rs.getString("tboard_date"));
+				dto.setCount(rs.getInt("tboard_count"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, con);
+		}
+		return dto;
+	}
 }
