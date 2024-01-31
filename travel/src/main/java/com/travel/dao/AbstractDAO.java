@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import com.travel.db.DBConnection;
 
 public class AbstractDAO {
-
+//00000
 	// DBConn
 	DBConnection db = DBConnection.getInstance();
 
