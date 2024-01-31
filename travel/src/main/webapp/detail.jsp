@@ -11,33 +11,49 @@
     <header><%@ include file="menu.jsp"%></header>
 
     <article>
-        <div>
+        <!-- 글 내용 -->
+        <div class="detailDIV">
             <div class="detailTITLE">
                 ${detail.title}
             </div>
-            <div class="detailWRITE">
-                ${detail.write}
-            </div>
-            <div class="detailCOUNT">
-                ${detail.count}
+            <div class="detailWRITECOUNT">
+                <div class="detailWRITE">
+                    ${detail.write}
+                </div>
+                <div class="detailCOUNT">
+                    ${detail.count}
+                </div>
             </div>
             <div class="detailCONTENT">
                 ${detail.content}
             </div>
         </div>
+
+        <!-- 댓글쓰기 -->
+        <div class="comment-write">
+            <div class="comment-form">
+                <textarea id="commentcontent" name="commentcontent"></textarea>
+                <button id="comment-btn">댓글쓰기</button>
+            </div>
+        </div>
+
         <br><br>
+        <!-- 댓글보여주기 -->
         <div class="ccomments">
             <c:forEach items="${commentList}" var="co">
             	<div class="comment">
             		<div class="chead">
             			<div class="cname">${co.mname }
             				<div class="cdate">${co.cdate }</div>
+                            <img class="commentDelete" src="./img/comment_del.png">
             			</div>
             		</div>
             		<div class="ccomment">${co.ccomment}</div>
-            	</div>
+                    <button id="reply">답글</button>
+                    </div>
             </c:forEach>
         </div>
+     
 
         
     </article>
