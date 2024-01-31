@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.travel.dto.BoardDTO;
+import com.travel.dto.CommentDTO;
 
 public class BoardDAO extends AbstractDAO {
 
@@ -74,7 +75,7 @@ public class BoardDAO extends AbstractDAO {
 
 		return list;
 	}
-
+	// 상세보기 가져오기
 	public BoardDTO detail(int no) {
 		BoardDTO dto = new BoardDTO();
 		Connection con = db.getConnection();
@@ -102,5 +103,38 @@ public class BoardDAO extends AbstractDAO {
 			close(rs, pstmt, con);
 		}
 		return dto;
+	}
+	// 디테일에 댓글목록 가져오기
+	public List<CommentDTO> commentList(int no) {
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM tcommentview WHERE board_no=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommentDTO dto = new CommentDTO();
+				dto.setCno(rs.getInt("cno"));
+				dto.setTboard_no(rs.getInt("board_no"));
+				dto.setCcomment(rs.getString("ccomment"));
+				dto.setCdate(rs.getString("cdate"));
+				dto.setClike(rs.getInt("clike"));
+				dto.setMno(rs.getInt("mno"));
+				dto.setMid(rs.getString("mid"));
+				dto.setMname(rs.getString("mname"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		
+		return list;
 	}
 }
