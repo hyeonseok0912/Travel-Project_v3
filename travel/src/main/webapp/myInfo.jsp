@@ -19,8 +19,7 @@
    <div class=main>
       <article>
          <h1>내 프로필</h1>
-         내 정보 나와라 yappp<br> 
-         ${myInfo.mname }/${myInfo.mid }/${myInfo.mpw }
+        ${myInfo.mname }/${myInfo.mid }/${myInfo.mpw }
       </article>
    </div>
 
