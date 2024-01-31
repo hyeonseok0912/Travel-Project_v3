@@ -8,25 +8,48 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.travel.dao.MemberDAO;
+import com.travel.dto.MemberDTO;
 
 @WebServlet("/myInfo")
 public class MyInfo extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	public MyInfo() {
-		super();
-	}
+   public MyInfo() {
+      super();
+   }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-	
-	RequestDispatcher rd = request.getRequestDispatcher("myinfo.jsp");
-	rd.forward(request, response);
-	}
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+//      response.getWriter().append("Served at: ").append(request.getContextPath());
+System.out.println("------");
+      // 세션 가져오기
+      HttpSession session = request.getSession();
+/*      if (session.getAttribute("mid") == null) {
+         // 만약 mid 세션이 없으면 로그인 페이지로
+         response.sendRedirect("./login");
+         System.out.println("에러");
+      } else { // mid 세션 있으면 정보 가져오기*/
+         // dto에 세션값 담기
+         MemberDTO dto = new MemberDTO();
+         dto.setMid((String) session.getAttribute("mid"));
+         // dao에 dto 담기
+         MemberDAO dao = new MemberDAO();
+         dto = dao.myInfo(dto);
+         // jsp에서 사용할 myInfo 만들기
+         request.setAttribute("myInfo", dto);
+         System.out.println(dto);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-//		doGet(request, response);
-	}
+         RequestDispatcher rd = request.getRequestDispatcher("myInfo.jsp");
+         rd.forward(request, response);
+      /*}*/
+   }
+
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+//      doGet(request, response);
+   }
 
 }

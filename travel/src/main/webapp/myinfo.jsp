@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,17 +13,16 @@
 
 </head>
 <body>
-	<header>
-		<%@include file="menu.jsp"%>
-	</header>
-	<div class=main>
-		<article>
-			<h1>내 프로필</h1>
-			
-		</article>
-	</div>
-
-
+   <header>
+      <%@include file="menu.jsp"%>
+   </header>
+   <div class=main>
+      <article>
+         <h1>내 프로필</h1>
+         내 정보 나와라 yappp<br> 
+         ${myInfo.mname }/${myInfo.mid }/${myInfo.mpw }
+      </article>
+   </div>
 
 </body>
 </html>
