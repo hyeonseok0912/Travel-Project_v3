@@ -9,7 +9,7 @@ import com.travel.dto.CommentDTO;
 
 public class CommentDAO extends AbstractDAO { 
 	
-	// 댓글쓰기
+	// 댓글쓰기 
 	public int commentWrite(CommentDTO dto) {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;

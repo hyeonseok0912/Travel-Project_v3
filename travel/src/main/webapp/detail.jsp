@@ -55,7 +55,7 @@
                             location.href = "./detail?no="+ bno;
                         } else {
                             alert("로그인 후 이용해주세요.");
-                            location.href="./login"
+                            location.href="./login";
                         }
                     },
                     error:function(request, status, error){
@@ -100,7 +100,7 @@
         </div>
 
         <br><br>
-        <!-- 댓글보여주기 -->
+        <!-- 댓글보여주기  -->
         <div class="ccomments">
             <c:forEach items="${commentList}" var="co">
             	<div class="comment">

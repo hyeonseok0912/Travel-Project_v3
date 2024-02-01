@@ -27,7 +27,7 @@ public class Detail extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 상세보기 불러오기
+		// 상세보기 불러오기 
 		int no = Util.str2Int(request.getParameter("no"));
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(no);
