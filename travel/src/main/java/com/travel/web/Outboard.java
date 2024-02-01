@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.travel.dao.BoardDAO;
 import com.travel.dto.BoardDTO;
+import com.travel.util.Util;
 
 @WebServlet("/outboard")
 public class Outboard extends HttpServlet {
@@ -37,6 +39,15 @@ public class Outboard extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		BoardDTO dto = new BoardDTO();
+		
+		dto.setMid((String)session.getAttribute("mid"));
+		dto.setMname((String)session.getAttribute("mid"));
+		dto.setInout(Util.str2Int(request.getParameter("write")));
+		//request.setAttribute(getServletName(), dto);
+		RequestDispatcher rd = request.getRequestDispatcher("./write?write="+request.getParameter("write"));
+		rd.forward(request, response);
 	}
 
 }

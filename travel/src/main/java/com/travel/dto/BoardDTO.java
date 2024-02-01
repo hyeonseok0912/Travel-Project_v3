@@ -2,7 +2,7 @@ package com.travel.dto;
 
 public class BoardDTO {
 	private int no, inout, del, count, like;
-	private String title, content, write, date;
+	private String title, content, write, date, mid, mname;
 	
 	public int getNo() {
 		return no;
@@ -57,5 +57,17 @@ public class BoardDTO {
 	}
 	public void setLike(int like) {
 		this.like = like;
+	}
+	public String getMid() {
+		return mid;
+	}
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
 }

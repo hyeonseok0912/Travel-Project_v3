@@ -88,6 +88,7 @@
             <div class="detailCONTENT">
                 ${detail.content}
             </div>
+            <button onclick="url('./inboard')">목록</button>
         </div>
 
         <!-- 댓글쓰기 -->

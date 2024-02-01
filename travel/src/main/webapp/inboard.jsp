@@ -10,12 +10,13 @@
 <script type="text/javascript" src="./js/menu.js"></script>
 </head>
 <body>
-	<head>
+	<header>
 	<%@ include file="menu.jsp" %>
-	</head>
+	</header>
    <article>
       <div class="title">
       <h1>국내 여행 게시판</h1>
+         <button onclick="url('./write')">글쓰기</button>
         <div>
        	 <a> | 전체 |</a>
          <a>공지사항 |</a>
@@ -36,12 +37,14 @@
                      </tr>
                      <c:forEach items="${list }" var="row">
                      <tr>
+                     <c:if test="${row.inout eq 0 }">
                      	<td>${row.no}</td>
                      	<td><a href="./detail?no=${row.no}">${row.title }</a></td>
                      	<td>${row.write }</td>
                      	<td>${row.like }</td>
                      	<td>${row.count }</td>
                      	<td>${row.date }</td>
+                     </c:if>
                      </tr>
                      </c:forEach>
                   </tbody>
@@ -49,6 +52,9 @@
             </div>
          </div>
       </div>
+      <div>
+			<button onclick="url('./write?write=0')" >글쓰기</button>
+	 </div>
    </article>
 </body>
 </html>

@@ -12,13 +12,13 @@ import com.travel.dto.CommentDTO;
 
 public class BoardDAO extends AbstractDAO {
 
-	public List<BoardDTO> boardList() {
+	public List<BoardDTO> inboardList() {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like"
-				+ " FROM tboard";
+		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout"
+				+ " FROM tboard WHERE tboard_inout=0";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -32,7 +32,7 @@ public class BoardDAO extends AbstractDAO {
 				e.setCount(rs.getInt("tboard_count"));
 				e.setDate(rs.getString("tboard_date"));
 				e.setLike(rs.getInt("tboard_like"));
-
+				e.setInout(rs.getInt("tboard_inout"));
 				list.add(e);
 			}
 		} catch (SQLException e) {
@@ -136,5 +136,28 @@ public class BoardDAO extends AbstractDAO {
 		}
 		
 		return list;
+	}
+	//게시판 글 작성하기
+	public int write(BoardDTO dto) {
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write) "
+				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?))";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getInout());
+			pstmt.setString(4, dto.getMid());
+			pstmt.setString(5, dto.getMname());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(null, pstmt, con);
+		}
+		return result;
 	}
 }
