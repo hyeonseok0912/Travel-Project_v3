@@ -14,13 +14,14 @@ public class CommentDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = "INSERT INTO tcomment (ccoment, tboard_no, mno) VALUES(?, ?, (SELECT mno FROM tmember mid=?)";
+		String sql = "INSERT INTO tcomment (ccomment, tboard_no, mno) VALUES (?, ?, (SELECT mno FROM tmember WHERE MID=?))";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getCcomment());
 			pstmt.setInt(2, dto.getTboard_no());
 			pstmt.setString(3, dto.getMid());
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -35,7 +36,7 @@ public class CommentDAO extends AbstractDAO {
 	public int commentDelete(CommentDTO dto) {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE comment SET cdel='0' WHERE cno=? AND mno=(SELECT mno FROM member WHERE mid=?)";
+		String sql = "UPDATE tcomment SET cdel='0' WHERE cno=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
 		int result = 0;
 		
 		try {

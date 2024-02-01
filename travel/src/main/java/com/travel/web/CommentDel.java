@@ -29,6 +29,7 @@ public class CommentDel extends HttpServlet {
 		int result = 0;
 		HttpSession session = request.getSession();
 		if(session.getAttribute("mid") != null && Util.intCheck(request.getParameter("no"))){
+			
 		
 			CommentDTO dto = new CommentDTO();
 			dto.setMid((String)session.getAttribute("mid"));
@@ -37,10 +38,12 @@ public class CommentDel extends HttpServlet {
 			CommentDAO dao = new CommentDAO();
 			result = dao.commentDelete(dto);
 			
+			//System.out.println((String)session.getAttribute("mid")); 값 넘어오는지 확인
+			//System.out.println(Util.str2Int(request.getParameter("no")));
 		
 		PrintWriter pw = response.getWriter();
 		pw.print(result);
-		System.out.println("1"); // 되나 확인
+		
 		
 		}
 
