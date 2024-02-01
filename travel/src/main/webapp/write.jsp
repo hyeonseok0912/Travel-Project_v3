@@ -24,7 +24,7 @@
 					<form action="./write" method="post">
 					<input type="text" name="title" id="title">
 					<textarea name="content" id="summernote"></textarea>
-					<button type="submit">저장</button>
+					<button type="submit"  id="inwrite" name="inwrite" value="0">저장</button>
 					</form>
 				</div>
 		</article>

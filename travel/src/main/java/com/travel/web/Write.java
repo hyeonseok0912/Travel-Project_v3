@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.travel.dao.BoardDAO;
 import com.travel.dto.BoardDTO;
+import com.travel.util.Util;
 
 
 @WebServlet("/write")
@@ -36,8 +37,8 @@ public class Write extends HttpServlet {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-
-		int in = 0;
+		int inout = Util.str2Int(request.getParameter("inwrite"));
+		System.out.println(request.getParameter("inwrite"));
 		
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = new BoardDTO();
@@ -45,7 +46,7 @@ public class Write extends HttpServlet {
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setMid((String)session.getAttribute("mid"));
-		dto.setInout(in);
+		dto.setInout(inout);
 		dto.setMname((String)session.getAttribute("mid"));
 		
 		int result = dao.write(dto);

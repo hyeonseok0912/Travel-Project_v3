@@ -12,13 +12,13 @@ import com.travel.dto.CommentDTO;
 
 public class BoardDAO extends AbstractDAO {
 
-	public List<BoardDTO> boardList() {
+	public List<BoardDTO> inboardList() {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like"
-				+ " FROM tboard";
+				+ " FROM tboard WHERE tboard_inout=0";
 
 		try {
 			pstmt = con.prepareStatement(sql);

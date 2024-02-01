@@ -28,7 +28,7 @@ public class InBoard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<BoardDTO>list = new ArrayList<BoardDTO>();
 		BoardDAO dao = new BoardDAO();
-		list = dao.boardList();
+		list = dao.inboardList();
 		
 		request.setAttribute("list", list);
 		RequestDispatcher rd = request.getRequestDispatcher("inboard.jsp");
