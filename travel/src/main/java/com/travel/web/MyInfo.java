@@ -1,6 +1,7 @@
 package com.travel.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.travel.dao.MemberDAO;
+import com.travel.dto.BoardDTO;
 import com.travel.dto.MemberDTO;
 
 @WebServlet("/myInfo")
@@ -44,6 +46,9 @@ public class MyInfo extends HttpServlet {
 
 			// jsp에서 사용할 myInfo 만들기
 			request.setAttribute("myInfo", dto);
+			
+			// 내가 쓴 글 보기
+			List<BoardDTO> mylist = dao.mylist(dto);
 
 			RequestDispatcher rd = request.getRequestDispatcher("myInfo.jsp");
 			rd.forward(request, response);
