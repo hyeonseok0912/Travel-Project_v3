@@ -24,10 +24,12 @@
       <article>
          <h2>내 정보 관리</h2>
          <form action="./myInfo" method="post" onsubmit="return check()">
-         	<div class=mid>내 아이디 : ${myInfo.mid }</div>
-         	<div class=mname>내 이름 : ${myInfo.mname }</div>
-        	<div class=mpw>내 비밀번호 :
-         		<input type="password" name="newPW" placeholder="변경할 암호를 입력하세요">
+         	<div class=mid>아이디 : ${myInfo.mid }</div>
+         	<div class=mname>이름 : ${myInfo.mname }</div>
+        	<div class=mpw>새로운 비밀번호 입력 : 
+         		<input type="password" name="newPW" id="newPW" placeholder="새로운 비밀번호를 입력">
+         		<br>새로운 비밀번호 확인 : 
+         		<input type="password" name="newPWcheck" id="newPWcheck" placeholder="새로운 비밀번호를 확인">
 		        <button type="submit">수정하기</button>
          	</div>
          </form>

@@ -85,4 +85,26 @@ public class MemberDAO extends AbstractDAO {
 		return result;
 	}
 
+	// 비밀번호 수정 메서드
+	public int newpw(MemberDTO dto) {
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE tmember SET mpw=? WHERE mid=?";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMpw());
+			pstmt.setString(2, dto.getMid());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
+		}
+		return result;
+	}
+
 }

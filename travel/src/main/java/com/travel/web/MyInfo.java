@@ -57,17 +57,19 @@ public class MyInfo extends HttpServlet {
 		// 세션 만들기
 		HttpSession session = request.getSession();
 
-		// 비번 수정
-		MemberDTO dto = new MemberDTO();
-		dto.setMpw(request.getParameter("newPW"));
+		if (request.getParameter("newPW") == request.getParameter("newPWcheck")) {
+			// 비번 수정
+			MemberDTO dto = new MemberDTO();
+			dto.setMpw(request.getParameter("newPW"));
 
-		// dto에 세션값 담기(mid 매치시켜주기)
-		dto.setMid((String) session.getAttribute("mid"));
-		
-		MemberDAO dao = new MemberDAO();
-		int result = dao.newpw(dto);
-		
-		System.out.println(result);
+			// dto에 세션값 담기(mid 매치시켜주기)
+			dto.setMid((String) session.getAttribute("mid"));
+
+			MemberDAO dao = new MemberDAO();
+			int result = dao.newpw(dto);
+
+			System.out.println(result);
+		}
 	}
 
 }
