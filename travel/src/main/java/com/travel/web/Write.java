@@ -26,6 +26,7 @@ public class Write extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				
 		RequestDispatcher rd = request.getRequestDispatcher("write.jsp");
 		rd.forward(request, response);
 	}
@@ -35,27 +36,27 @@ public class Write extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		int inout = Util.str2Int(request.getParameter("inwrite"));
-		System.out.println(request.getParameter("inwrite"));
-		
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = new BoardDTO();
 		
-		dto.setTitle(title);
-		dto.setContent(content);
 		dto.setMid((String)session.getAttribute("mid"));
-		dto.setInout(inout);
+		dto.setTitle(request.getParameter("title"));
+		dto.setContent(request.getParameter("content"));		
 		dto.setMname((String)session.getAttribute("mid"));
+		dto.setInout(Util.str2Int(request.getParameter("write")));
 		
+		request.setAttribute("write", dto);
 		int result = dao.write(dto);
-		if (result == 1) {
-			response.sendRedirect("./inboard");
-		} else {
-			response.sendRedirect("error.jsp");
-		}
 		
+		if (result == 1) {
+			if (dto.getInout() == 0) {
+				response.sendRedirect("./inboard");
+			} else {
+				response.sendRedirect("./outboard");
+			}
+		} else {
+			response.sendRedirect("./error.jsp");			
+		}
 		
 		
 	}

@@ -52,7 +52,9 @@
             </div>
          </div>
       </div>
-      <button onclick="url('./write')">글쓰기</button>
+      <div>
+			<button onclick="url('./write?write=0')" >글쓰기</button>
+	 </div>
    </article>
 </body>
 </html>
