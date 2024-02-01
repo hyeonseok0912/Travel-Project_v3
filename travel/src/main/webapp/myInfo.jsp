@@ -38,6 +38,24 @@
       
       <article>
       	<h2>내가 쓴 게시글</h2>
+      		<table>
+      			<tr>
+      				<th>번호</th>
+      				<th>제목</th>
+      				<th>등록일</th>
+      				<th>조회</th>
+      				<th>추천</th>
+      			</tr>
+      			<c:forEach items="${mylist }" var="row">
+      				<tr>
+      					<td>${row.no}</td>
+      					<td><a href="./detail?no=${row.no}">${row.title}</a></td>
+      					<td>${row.date}</td>
+      					<td>${row.count}</td>
+      					<td>${row.like}</td>
+      				</tr>
+      			</c:forEach>
+      		</table>
       </article>
       <hr>
       

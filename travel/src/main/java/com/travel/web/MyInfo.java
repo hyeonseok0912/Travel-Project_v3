@@ -46,9 +46,11 @@ public class MyInfo extends HttpServlet {
 
 			// jsp에서 사용할 myInfo 만들기
 			request.setAttribute("myInfo", dto);
-			
+
 			// 내가 쓴 글 보기
 			List<BoardDTO> mylist = dao.mylist(dto);
+			request.setAttribute("mylist", mylist);
+			System.out.println(mylist);
 
 			RequestDispatcher rd = request.getRequestDispatcher("myInfo.jsp");
 			rd.forward(request, response);
