@@ -36,15 +36,12 @@ public class Join extends HttpServlet {
 			dto.setMname(request.getParameter("name"));
 			
 			MemberDAO dao = new MemberDAO();
-			int result = dao.join(dto);
-			
-			if(result == 1) {
-				//로그인 페이지로
-				response.sendRedirect("./login");
-			} else {
-				//에러 페이지로
-				response.sendRedirect("./error");
-			}
+			/*
+			 * int result = dao.join(dto);
+			 * 
+			 * if(result == 1) { //로그인 페이지로 response.sendRedirect("./login"); } else { //에러
+			 * 페이지로 response.sendRedirect("./error"); }
+			 */
 		}
 	}
 

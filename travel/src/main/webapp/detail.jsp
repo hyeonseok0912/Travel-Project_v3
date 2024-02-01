@@ -8,7 +8,21 @@
 <script type="text/javascript" src="./js/menu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
-    // 댓글 삭제하기
+	//게시글 삭제하기
+	function writedel() {
+		var ch = confirm("글을 삭제하시겠습니까?");
+		if(ch){
+			location.href="./writedel?no=${detail.no}";
+		}
+	}
+	function writeedit() {
+		var ch = confirm("글을 수정하시겠습니까?");
+		if(ch){
+			location.href="./writeedit?no=${detail.no}";
+		}
+	}
+    
+	// 댓글 삭제하기
     $(document).ready(function(){
 	    $(".commentDelete").click(function(){
 	         if(confirm("댓글을 삭제할까요?")) {
@@ -70,7 +84,8 @@
 </head>
 <body>
     <header><%@ include file="menu.jsp"%></header>
-
+	<button onclick="writeedit()">수정</button>
+	<button onclick="writedel()">삭제</button>
     <article>
         <!-- 글 내용 -->
         <div class="detailDIV">

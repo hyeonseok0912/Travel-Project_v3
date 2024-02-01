@@ -160,4 +160,27 @@ public class BoardDAO extends AbstractDAO {
 		}
 		return result;
 	}
+
+	public int writeedit(BoardDTO dto) {
+	
+			int result = 0;
+			Connection con = db.getConnection();
+			PreparedStatement pstmt = null;
+			String sql = "UPDATE tboard SET tboard_title = ?, tboard_content= ? WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dto.getTitle());
+				pstmt.setString(2, dto.getContent());
+				pstmt.setInt(3, dto.getNo());
+				pstmt.setString(4, dto.getMid());
+
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(null, pstmt, con);
+			}
+			return result;
+	}
 }

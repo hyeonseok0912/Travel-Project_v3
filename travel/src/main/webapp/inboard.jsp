@@ -16,7 +16,7 @@
    <article>
       <div class="title">
       <h1>국내 여행 게시판</h1>
-         <button onclick="url('./write')">글쓰기</button>
+         <button onclick="url('./write?write=0')">글쓰기</button>
         <div>
        	 <a> | 전체 |</a>
          <a>공지사항 |</a>

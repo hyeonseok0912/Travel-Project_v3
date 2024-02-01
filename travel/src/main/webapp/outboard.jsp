@@ -18,7 +18,7 @@
 	</header>
       <h1>해외 여행 게시판</h1>
 	<article>
-		<button onclick="url('./write')">글쓰기</button>
+		<button onclick="url('./write?write=1')" >글쓰기</button>
     	<div>
         	<table>
 	        	<thead>
@@ -48,8 +48,7 @@
 			</table>
 		</div>
 		<div>
-			<button onclick="url('./write?write=1')" >글쓰기</button>
-		
+			<button onclick="url('./write?write=1')">글쓰기</button>
 		</div>
 	</article>
 </body>
