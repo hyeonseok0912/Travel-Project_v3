@@ -144,5 +144,28 @@ public class MemberDAO extends AbstractDAO {
 		}
 		return list;
 	}
+	
+	//회원가입
+	public int join(MemberDTO dto) {
+	      int result = 0;
+	      Connection con = db.getConnection();
+	      PreparedStatement pstmt = null;
+	      String sql = "INSERT INTO tmember (mid, mname, mpw) VALUES(?, ?, ?)";
+	      
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, dto.getMid());
+	         pstmt.setString(2, dto.getMname());
+	         pstmt.setString(3, dto.getMpw());
+	         result = pstmt.executeUpdate();
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(null, pstmt, con);
+	      }
+	      
+	      return result;
+	   }
+
 
 }
