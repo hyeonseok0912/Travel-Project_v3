@@ -75,6 +75,7 @@ public class BoardDAO extends AbstractDAO {
 
 		return list;
 	}
+
 	// 상세보기 가져오기
 	public BoardDTO detail(int no) {
 		BoardDTO dto = new BoardDTO();
@@ -82,9 +83,8 @@ public class BoardDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, b.tboard_date, b.tboard_inout,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count "
-				+ "FROM tboard b JOIN tmember m ON b.mno=m.mno "
-				+ "WHERE b.tboard_no=?";
-		
+				+ "FROM tboard b JOIN tmember m ON b.mno=m.mno " + "WHERE b.tboard_no=?";
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
@@ -100,11 +100,12 @@ public class BoardDAO extends AbstractDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs, pstmt, con);
 		}
 		return dto;
 	}
+
 	// 디테일에 댓글목록 가져오기
 	public List<CommentDTO> commentList(int no) {
 		List<CommentDTO> list = new ArrayList<CommentDTO>();
@@ -112,13 +113,13 @@ public class BoardDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM tcommentview WHERE board_no=?";
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				CommentDTO dto = new CommentDTO();
 				dto.setCno(rs.getInt("cno"));
 				dto.setTboard_no(rs.getInt("board_no"));
@@ -135,17 +136,18 @@ public class BoardDAO extends AbstractDAO {
 		} finally {
 			close(rs, pstmt, con);
 		}
-		
+
 		return list;
 	}
-	//게시판 글 작성하기
+
+	// 게시판 글 작성하기
 	public int write(BoardDTO dto) {
 		int result = 0;
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write) "
 				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?))";
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getTitle());
@@ -156,32 +158,32 @@ public class BoardDAO extends AbstractDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(null, pstmt, con);
 		}
 		return result;
 	}
 
 	public int writeedit(BoardDTO dto) {
-	
-			int result = 0;
-			Connection con = db.getConnection();
-			PreparedStatement pstmt = null;
-			String sql = "UPDATE tboard SET tboard_title = ?, tboard_content= ? WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
 
-			try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, dto.getTitle());
-				pstmt.setString(2, dto.getContent());
-				pstmt.setInt(3, dto.getNo());
-				pstmt.setString(4, dto.getMid());
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE tboard SET tboard_title = ?, tboard_content= ? WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
 
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(null, pstmt, con);
-			}
-			return result;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getNo());
+			pstmt.setString(4, dto.getMid());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
+		}
+		return result;
 	}
 }

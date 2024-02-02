@@ -49,7 +49,7 @@ public class Comment extends HttpServlet {
 
 			String bno = request.getParameter("bno"); // 글번호
 
-			// 저장하기 
+			// 저장하기
 			CommentDTO dto = new CommentDTO();
 			dto.setCcomment(commentcontent);
 			dto.setTboard_no(Util.str2Int(bno));
@@ -61,8 +61,6 @@ public class Comment extends HttpServlet {
 			PrintWriter pw = response.getWriter();
 			pw.print(result);
 			System.out.println(result);
-			
-			
 
 		} else {
 			response.sendRedirect("./login");

@@ -145,6 +145,7 @@ public class MemberDAO extends AbstractDAO {
 		return list;
 	}
 	
+	
 	//회원가입
 	public int join(MemberDTO dto) {
 	      int result = 0;
