@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.travel.dao.BoardDAO;
 import com.travel.dto.BoardDTO;
@@ -23,8 +24,9 @@ public class Detail extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
 		// 상세보기 불러오기
 		int no = Util.str2Int(request.getParameter("no"));
 		BoardDAO dao = new BoardDAO();
@@ -39,7 +41,12 @@ public class Detail extends HttpServlet {
 		if (commentList.size() > 0) {
 			request.setAttribute("commentList", commentList);
 		}
-
+		
+		//조회수 올리기[민우]
+		if (session.getAttribute("mid") != null) {
+			dao.countup(no,(String)session.getAttribute("mid"));
+		}
+		
 		RequestDispatcher rd = request.getRequestDispatcher("detail.jsp");
 		rd.forward(request, response);
 

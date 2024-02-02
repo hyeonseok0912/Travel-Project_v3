@@ -209,4 +209,52 @@ public class BoardDAO extends AbstractDAO {
 		}
 		return result;
 	}
+
+	public void countup(int no, String mid) {
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "SELECT COUNT(*) FROM tvisit WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+		ResultSet rs = null;
+			
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setString(2, mid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result  = rs.getInt(1);
+					if (result == 0) {
+						realCountUp(no,mid);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, con);
+			}
+		}
+
+	private void realCountUp(int no, String mid) {
+		
+			Connection con = db.getConnection();
+			PreparedStatement insertpstmt = null;
+			PreparedStatement updatepstmt = null;
+			String insertsql = "INSERT INTO tvisit(tboard_no, mno) VALUES (? , (SELECT mno FROM tmember WHERE mid=?))";
+			String updatesql = "UPDATE tboard SET tboard_count=tboard_count+1 WHERE tboard_no=?";		
+			
+			try {
+				insertpstmt = con.prepareStatement(insertsql);
+				updatepstmt = con.prepareStatement(updatesql);
+				insertpstmt.setInt(1, no);
+				insertpstmt.setString(2, mid);
+				updatepstmt.setInt(1, no);
+				
+				insertpstmt.executeUpdate();
+				updatepstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(null, updatepstmt, con);
+		}
+	}
 }

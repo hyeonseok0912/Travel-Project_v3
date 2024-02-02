@@ -41,9 +41,9 @@
                      	<td>${row.no}</td>
                      	<td><a href="./detail?no=${row.no}">${row.title }</a></td>
                      	<td>${row.write }</td>
-                     	<td>${row.like }</td>
-                     	<td>${row.count }</td>
                      	<td>${row.date }</td>
+                     	<td>${row.count }</td>
+                     	<td>${row.like }</td>
                      </c:if>
                      </tr>
                      </c:forEach>
