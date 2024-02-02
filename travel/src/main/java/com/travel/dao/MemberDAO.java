@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.travel.dto.BoardDTO;
+import com.travel.dto.CommentDTO;
 import com.travel.dto.MemberDTO;
 
 public class MemberDAO extends AbstractDAO {
@@ -144,28 +145,58 @@ public class MemberDAO extends AbstractDAO {
 		}
 		return list;
 	}
-	
-	//회원가입
-	public int join(MemberDTO dto) {
-	      int result = 0;
-	      Connection con = db.getConnection();
-	      PreparedStatement pstmt = null;
-	      String sql = "INSERT INTO tmember (mid, mname, mpw) VALUES(?, ?, ?)";
-	      
-	      try {
-	         pstmt = con.prepareStatement(sql);
-	         pstmt.setString(1, dto.getMid());
-	         pstmt.setString(2, dto.getMname());
-	         pstmt.setString(3, dto.getMpw());
-	         result = pstmt.executeUpdate();
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         close(null, pstmt, con);
-	      }
-	      
-	      return result;
-	   }
 
+	// 회원가입
+	public int join(MemberDTO dto) {
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO tmember (mid, mname, mpw) VALUES(?, ?, ?)";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+			pstmt.setString(2, dto.getMname());
+			pstmt.setString(3, dto.getMpw());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
+		}
+
+		return result;
+	}
+
+	// 내가 쓴 댓글 뽑아내기 메서드
+	public List<CommentDTO> myclist(MemberDTO dto) {
+
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT t.tboard_no, t.ccomment, t.cdate, t.clike, t.cdel FROM tcomment t JOIN tmember m ON t.mno = m.mno JOIN tboard b on t.tboard_no = b.tboard_no WHERE m.mid=?";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentDTO e = new CommentDTO();
+				e.setTboard_no(rs.getInt("tboard_no"));
+				e.setCcomment(rs.getString("ccomment"));
+				e.setCdate(rs.getString("cdate"));
+				e.setClike(rs.getInt("clike"));
+				e.setCdel(rs.getInt("cdel"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return list;
+	}
 
 }
