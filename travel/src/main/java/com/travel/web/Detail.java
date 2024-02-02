@@ -28,8 +28,9 @@ public class Detail extends HttpServlet {
 		// 상세보기 불러오기
 		int no = Util.str2Int(request.getParameter("no"));
 		BoardDAO dao = new BoardDAO();
+		
 		BoardDTO dto = dao.detail(no);
-		System.out.println(dto.getInout());
+		
 		request.setAttribute("detail", dto);
 
 		// 댓글목록 가져오기

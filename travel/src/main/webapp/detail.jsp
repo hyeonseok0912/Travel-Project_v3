@@ -12,7 +12,7 @@
 	function writedel() {
 		var ch = confirm("글을 삭제하시겠습니까?");
 		if(ch){
-			location.href="./writedel?no=${detail.no}";
+			location.href="./writedel?no=${detail.no}&inout=${param.inout}&del=1";
 		}
 	}
 	function writeedit() {
@@ -91,8 +91,10 @@
 </head>
 <body>
     <header><%@ include file="menu.jsp"%></header>
-	<button onclick="writeedit()">수정</button>
-	<button onclick="writedel()">삭제</button>
+ 	<c:if test="${detail.mid eq sessionScope.mid}">
+		<button onclick="writeedit()">수정</button>
+		<button onclick="writedel()" value="${detail.inout}">삭제</button>
+	</c:if>
     <article>
         <!-- 글 내용 -->
         <div class="detailDIV">
