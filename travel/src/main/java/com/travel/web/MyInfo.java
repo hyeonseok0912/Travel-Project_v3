@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.travel.dao.MemberDAO;
 import com.travel.dto.BoardDTO;
+import com.travel.dto.CommentDTO;
 import com.travel.dto.MemberDTO;
 
 @WebServlet("/myInfo")
@@ -50,7 +51,11 @@ public class MyInfo extends HttpServlet {
 			// 내가 쓴 글 보기
 			List<BoardDTO> mylist = dao.mylist(dto);
 			request.setAttribute("mylist", mylist);
-			System.out.println(mylist);
+			
+			// 내가 쓴 댓글 보기
+			List<CommentDTO> myclist = dao.myclist(dto);
+			request.setAttribute("myclist", myclist);
+			System.out.println(myclist);
 
 			RequestDispatcher rd = request.getRequestDispatcher("myInfo.jsp");
 			rd.forward(request, response);

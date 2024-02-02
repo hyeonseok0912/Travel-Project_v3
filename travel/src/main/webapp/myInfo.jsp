@@ -61,6 +61,20 @@
       
       <article>
       	<h2>내가 쓴 댓글</h2>
+      		<table>
+      			<tr>
+      				<th>댓글</th>
+      				<th>등록일</th>
+      				<th>추천</th>
+      			</tr>
+      			<c:forEach items="${myclist }" var="mco">
+					<tr>
+						<td><a href="./detail?no=${mco.tboard_no}">${mco.ccomment }<br></a></td>
+						<td>${mco.cdate }</td>
+						<td>${mco.clike }</td>
+					</tr>
+      			</c:forEach>
+      		</table>
       </article>
       
    </div>
