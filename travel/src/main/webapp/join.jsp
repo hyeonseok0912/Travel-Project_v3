@@ -27,9 +27,7 @@
 				"change keyup paste",
 				function() {
 					$('.id-alert').show();
-					$('.id-alert').html(
-							'<p class = "alert">당신이 입력한 ID는 ' + $('#id').val()
-									+ '</p>');
+					$('.id-alert').html('<p class = "alert">당신이 입력한 ID는 ' + $('#id').val() + '</p>');
 					//if($('#id').val().length > 4)
 				});
 	});
@@ -80,9 +78,7 @@
 		let id = $('#id').val();
 		const regExp = /^[a-z0-9]{5,15}$/;
 		if (id.length < 4 || !regExp.test(id)) {
-			$('.id-alert')
-					.html(
-							'<p class="alert">아이디는 5글자 이상 15글자 미만이고, 특수문자가 없어야 합니다.</p>');
+			$('.id-alert').html('<p class="alert">아이디는 5글자 이상 15글자 미만이고, 특수문자가 없어야 합니다.</p>');
 			$('#id').focus();
 		} else {
 			//AJAX로 가상폼 방식으로 서블릿에 전달
@@ -90,21 +86,17 @@
 				url : './idCheck',
 				type : 'post',
 				dataType : 'text',
-				data : {
-					id : id
-				},
+				data : {id : id},
 				success : function(result) {
 					if (result == 1) {
-						$('.id-alert')
-								.append('<p class="alert">중복된 id입니다.</p>');
+						$('.id-alert').append('<p class="alert">중복된 id입니다.</p>');
 						$('.id-alert .alert').css("color","red");
 						$('.id-alert .alert').css("font-weight","bold");
 						idCheckBool = false;
 						$("#joinBtn").attr("disabled", "disabled");//가입버튼 비활성화
 						$('#id').focus();
 					} else {
-						$('.id-alert').append(
-								'<p class="alert">사용 가능한 id입니다.</p>');
+						$('.id-alert').append('<p class="alert">사용 가능한 id입니다.</p>');
 						$('.id-alert .alert').css("color", "blue");
 						$('.id-alert .alert').css("font-weight","bold");
 						idCheckBool = true;
@@ -152,7 +144,7 @@
 								</div>
 								<div class="input-group mb-2">
 									<label class="input-group-text">Password</label>
-									<input type="password" id="pw1" class="form-control" placeholder="PW를 입력해주세요">
+									<input type="password" id="pw1" name="pw1" class="form-control" placeholder="PW를 입력해주세요">
 									<label class="input-group-text">Password 확인</label>
 									<input type="password" id="pw2" class="form-control" placeholder="PW를 한번 더 입력해주세요">
 								</div>
