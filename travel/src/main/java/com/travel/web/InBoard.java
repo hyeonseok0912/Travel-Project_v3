@@ -16,19 +16,17 @@ import com.travel.dao.BoardDAO;
 import com.travel.dto.BoardDTO;
 import com.travel.util.Util;
 
-
 @WebServlet("/inboard")
 public class InBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public InBoard() {
-        super();
-    }
+	public InBoard() {
+		super();
+	}
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardDTO>list = new ArrayList<BoardDTO>();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		BoardDAO dao = new BoardDAO();
 		list = dao.inboardList();
 
@@ -37,15 +35,15 @@ public class InBoard extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		BoardDTO dto = new BoardDTO();
-		
-		dto.setMid((String)session.getAttribute("mid"));
-		dto.setMname((String)session.getAttribute("mid"));
+
+		dto.setMid((String) session.getAttribute("mid"));
+		dto.setMname((String) session.getAttribute("mid"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
-		RequestDispatcher rd = request.getRequestDispatcher("./write?write="+request.getParameter("write"));
+		RequestDispatcher rd = request.getRequestDispatcher("./write?write=" + request.getParameter("write"));
 		rd.forward(request, response);
 	}
 

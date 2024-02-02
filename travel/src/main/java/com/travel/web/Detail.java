@@ -15,39 +15,38 @@ import com.travel.dto.BoardDTO;
 import com.travel.dto.CommentDTO;
 import com.travel.util.Util;
 
-
 @WebServlet("/detail")
 public class Detail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public Detail() {
-        super();
-    }
+	public Detail() {
+		super();
+	}
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 상세보기 불러오기 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 상세보기 불러오기
 		int no = Util.str2Int(request.getParameter("no"));
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(no);
 		System.out.println(dto.getInout());
 		request.setAttribute("detail", dto);
-		
+
 		// 댓글목록 가져오기
 		List<CommentDTO> commentList = dao.commentList(no);
-		
-		if(commentList.size() > 0) {
+
+		if (commentList.size() > 0) {
 			request.setAttribute("commentList", commentList);
 		}
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("detail.jsp");
 		rd.forward(request, response);
-		
-	
+
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 	}
 
 }
