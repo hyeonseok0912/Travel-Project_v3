@@ -37,9 +37,9 @@
                      </tr>
                      <c:forEach items="${list }" var="row">
                      <tr>
-                     <c:if test="${row.inout eq 0 }">
+                     <c:if test="${row.inout eq 0 && row.del ne 0}">
                      	<td>${row.no}</td>
-                     	<td><a href="./detail?no=${row.no}">${row.title }</a></td>
+                     	<td><a href="./detail?no=${row.no}&inout=${row.inout}">${row.title }</a></td>
                      	<td>${row.write }</td>
                      	<td>${row.date }</td>
                      	<td>${row.count }</td>

@@ -17,7 +17,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout"
+		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del"
 				+ " FROM tboard WHERE tboard_inout=0";
 
 		try {
@@ -33,6 +33,7 @@ public class BoardDAO extends AbstractDAO {
 				e.setDate(rs.getString("tboard_date"));
 				e.setLike(rs.getInt("tboard_like"));
 				e.setInout(rs.getInt("tboard_inout"));
+				e.setDel(rs.getInt("tboard_del"));
 				list.add(e);
 			}
 		} catch (SQLException e) {
