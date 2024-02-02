@@ -21,6 +21,13 @@
 			location.href="./writeedit?no=${detail.no}";
 		}
 	}
+	function selectBoard() {
+		if(${detail.inout} == 0){
+			location.href="./inboard";
+		} else {
+			location.href="./outboard";
+		}
+	}
     
 	// 댓글 삭제하기
     $(document).ready(function(){
@@ -103,7 +110,7 @@
             <div class="detailCONTENT">
                 ${detail.content}
             </div>
-            <button onclick="url('./inboard')">목록</button>
+            <button onclick="selectBoard()" value="${detail.inout}">목록</button>
         </div>
 
         <!-- 댓글쓰기 -->

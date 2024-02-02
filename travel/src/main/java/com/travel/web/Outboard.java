@@ -27,12 +27,9 @@ public class Outboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();	
 		BoardDAO dao = new BoardDAO();
-		
 		list = dao.outboardList();
 		
 		request.setAttribute("list", list);
-		
-		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("outboard.jsp");
 		rd.forward(request, response);	
@@ -43,9 +40,8 @@ public class Outboard extends HttpServlet {
 		BoardDTO dto = new BoardDTO();
 		
 		dto.setMid((String)session.getAttribute("mid"));
-		dto.setMname((String)session.getAttribute("mid"));
+		dto.setMname((String)session.getAttribute("mname"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
-		//request.setAttribute(getServletName(), dto);
 		RequestDispatcher rd = request.getRequestDispatcher("./write?write="+request.getParameter("write"));
 		rd.forward(request, response);
 	}
