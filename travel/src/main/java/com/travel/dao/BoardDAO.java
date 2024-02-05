@@ -235,6 +235,8 @@ public class BoardDAO extends AbstractDAO {
 			e.printStackTrace();
 		} finally {
 			close(rs, pstmt, con);
+<<<<<<< HEAD
+=======
 		}
 	}
 
@@ -259,7 +261,92 @@ public class BoardDAO extends AbstractDAO {
 			e.printStackTrace();
 		} finally {
 			close(null, updatepstmt, con);
+>>>>>>> branch 'master' of https://github.com/hyeonseok0912/Travel-Project_v3.git
 		}
 	}
 
+<<<<<<< HEAD
+	private void realCountUp(int no, String mid) {
+
+		Connection con = db.getConnection();
+		PreparedStatement insertpstmt = null;
+		PreparedStatement updatepstmt = null;
+		String insertsql = "INSERT INTO tvisit(tboard_no, mno) VALUES (? , (SELECT mno FROM tmember WHERE mid=?))";
+		String updatesql = "UPDATE tboard SET tboard_count=tboard_count+1 WHERE tboard_no=?";
+
+		try {
+			insertpstmt = con.prepareStatement(insertsql);
+			updatepstmt = con.prepareStatement(updatesql);
+			insertpstmt.setInt(1, no);
+			insertpstmt.setString(2, mid);
+			updatepstmt.setInt(1, no);
+
+			insertpstmt.executeUpdate();
+			updatepstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, updatepstmt, con);
+		}
+	}
+
+=======
+	public List<BoardDTO> inHotList() {
+
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM tboard WHERE tboard_inout=0 ORDER BY tboard_like DESC LIMIT 10";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDTO e = new BoardDTO();
+				e.setNo(rs.getInt("tboard_no"));
+				e.setTitle(rs.getString("tboard_title"));
+				e.setInout(rs.getInt("tboard_inout"));
+				e.setHeader(rs.getString("tboard_header"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	public List<BoardDTO> outHotList() {
+
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM tboard WHERE tboard_inout=1 ORDER BY tboard_like DESC LIMIT 10";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDTO e = new BoardDTO();
+				e.setNo(rs.getInt("tboard_no"));
+				e.setTitle(rs.getString("tboard_title"));
+				e.setInout(rs.getInt("tboard_inout"));
+				e.setHeader(rs.getString("tboard_header"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return list;
+	}
+>>>>>>> branch 'master' of https://github.com/hyeonseok0912/Travel-Project_v3.git
 }
