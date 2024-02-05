@@ -235,8 +235,6 @@ public class BoardDAO extends AbstractDAO {
 			e.printStackTrace();
 		} finally {
 			close(rs, pstmt, con);
-<<<<<<< HEAD
-=======
 		}
 	}
 
@@ -261,36 +259,9 @@ public class BoardDAO extends AbstractDAO {
 			e.printStackTrace();
 		} finally {
 			close(null, updatepstmt, con);
->>>>>>> branch 'master' of https://github.com/hyeonseok0912/Travel-Project_v3.git
 		}
 	}
 
-<<<<<<< HEAD
-	private void realCountUp(int no, String mid) {
-
-		Connection con = db.getConnection();
-		PreparedStatement insertpstmt = null;
-		PreparedStatement updatepstmt = null;
-		String insertsql = "INSERT INTO tvisit(tboard_no, mno) VALUES (? , (SELECT mno FROM tmember WHERE mid=?))";
-		String updatesql = "UPDATE tboard SET tboard_count=tboard_count+1 WHERE tboard_no=?";
-
-		try {
-			insertpstmt = con.prepareStatement(insertsql);
-			updatepstmt = con.prepareStatement(updatesql);
-			insertpstmt.setInt(1, no);
-			insertpstmt.setString(2, mid);
-			updatepstmt.setInt(1, no);
-
-			insertpstmt.executeUpdate();
-			updatepstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(null, updatepstmt, con);
-		}
-	}
-
-=======
 	public List<BoardDTO> inHotList() {
 
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -348,5 +319,4 @@ public class BoardDAO extends AbstractDAO {
 		}
 		return list;
 	}
->>>>>>> branch 'master' of https://github.com/hyeonseok0912/Travel-Project_v3.git
 }
