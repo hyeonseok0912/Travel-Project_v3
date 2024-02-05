@@ -29,6 +29,16 @@
 		}
 	}
     
+	// 본인 댓글 좋아요 눌렀을 때
+	function myComment() {
+		alert("자신의 댓글은 좋아요를 누를 수 없습니다.")
+	}
+	// 로그인 안하고 좋아요 눌렀을 때 
+	function needLogin() {
+		alert("로그인 후 이용해주세요.")
+		location.href="./login";
+	}
+	
 	// 댓글 삭제하기
     $(document).ready(function(){
 	    $(".commentDelete").click(function(){
@@ -85,6 +95,30 @@
                 });
             }
         });
+        
+        $("#commentLike2").click(function(){
+			let cno = $(this).prev().val();
+			let clike = $(this).siblings('.clike').val();
+		 	let bno = ${detail.no };
+			$.ajax({
+				url : './commentLike',
+				type : 'post',
+				dataType : 'text',
+				data : {no : cno, clike : clike},
+				success:function(result){
+					if(result==1){
+						
+						 location.href = "./detail?no="+ bno;
+					} else {
+						alert("좋아요가 안되요")
+						
+					}
+				}, error:function(request, status, error){
+					
+					alert("무언가 문제가 발새했슴다");
+				}
+			})
+		});
     });
 
 </script>
@@ -133,8 +167,24 @@
                             <c:if test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
                                 <input type="hidden" class="cno" value="${co.cno }">
                                 <img class="commentDelete" alt="delete" src="./img/comment_del.png">
-            				    <div class="cdate">${co.cdate }</div>
                         	</c:if>
+            				    <div class="cdate">${co.cdate }</div>
+            					<div class='clike'>
+            				    	<c:choose>
+            				    	<c:when test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
+            				    	<img class="commentLike1" onclick="myComment()" alt="like" src="./img/like1.png"><span style="font-size: small;">${co.clike }</span>
+            				    	</c:when>
+            				    	<c:when test="${sessionScope.mname ne null && co.mid ne sessionScope.mid }">
+            				    	<input type="hidden" class="cno" value="${co.cno }">
+            				    	<img id="commentLike2" alt="like" src="./img/like1.png">
+            				    	<span style="font-size: small;">${co.clike }</span>
+            				    	<input type="hidden" class="clike" value="${co.clike }">
+            				    	</c:when>
+            				    	<c:otherwise>
+            				    	<img class="commentLike3" onclick="needLogin()" alt="like" src="./img/like1.png"><span style="font-size: small;">${co.clike }</span>
+            				    	</c:otherwise>
+            				    	</c:choose>
+            				    	</div>
             			</div>
             		</div>
             		<div class="ccomment">${co.ccomment}</div>
