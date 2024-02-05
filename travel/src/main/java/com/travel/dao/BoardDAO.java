@@ -49,7 +49,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del"
+		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
 				+ " FROM tboard WHERE tboard_inout=1 ORDER BY tboard_date DESC";
 
 		try {
@@ -66,6 +66,7 @@ public class BoardDAO extends AbstractDAO {
 				e.setLike(rs.getInt("tboard_like"));
 				e.setInout(rs.getInt("tboard_inout"));
 				e.setDel(rs.getInt("tboard_del"));
+				e.setHeader(rs.getString("tboard_header"));
 				list.add(e);
 			}
 
@@ -149,8 +150,8 @@ public class BoardDAO extends AbstractDAO {
 		int result = 0;
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write) "
-				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?))";
+		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write, tboard_header) "
+				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?),?)";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -158,7 +159,8 @@ public class BoardDAO extends AbstractDAO {
 			pstmt.setString(2, dto.getContent());
 			pstmt.setInt(3, dto.getInout());
 			pstmt.setString(4, dto.getMid());
-			pstmt.setString(5, dto.getMname());
+			pstmt.setString(5, dto.getMid());
+			pstmt.setString(6, dto.getHeader());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

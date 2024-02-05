@@ -2,8 +2,16 @@ package com.travel.dto;
 
 public class BoardDTO {
 	private int no, inout, del, count, like;
-	private String title, content, write, date, mid, mname;
+	private String title, content, write, date, mid, mname, header;
 	
+	
+	
+	public String getHeader() {
+		return header;
+	}
+	public void setHeader(String header) {
+		this.header = header;
+	}
 	public int getNo() {
 		return no;
 	}
