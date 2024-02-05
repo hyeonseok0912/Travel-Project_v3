@@ -18,7 +18,7 @@ public class BoardDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
-				+ " FROM tboard WHERE tboard_inout=0 ORDER BY tboard_date DESC";
+				+ " FROM boardview WHERE tboard_inout=0 ORDER BY tboard_date DESC";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -318,5 +318,49 @@ public class BoardDAO extends AbstractDAO {
 			close(rs, pstmt, con);
 		}
 		return list;
+	}
+	public int boardUp(BoardDTO dto) {// 게시물 추천 중복 확인[미우]
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "SELECT COUNT(*) FROM tblike WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNo());
+			pstmt.setString(2, dto.getMid());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getInt(1) == 0) {
+					result = realUp(dto);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+
+	private int realUp(BoardDTO dto) {//게시물 추천 올리기[미누]
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO tblike (mno, tboard_no) VALUES ((SELECT mno FROM tmember WHERE mid=?), ?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+			pstmt.setInt(2, dto.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(null, pstmt, con);
+		}
+		return result;
 	}
 }

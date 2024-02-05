@@ -39,8 +39,33 @@
 		location.href="./login";
 	}
 	
-	// 댓글 삭제하기
+	
     $(document).ready(function(){
+   	 	//게시글 추천하기[민우]
+			$(".b_recommen").click(function(){
+				if(confirm("추천하시겠습니까?")){
+					let bno = ${detail.no};
+				
+					$.ajax({
+						url:'./detail',
+						type:'post',
+						dataType:'text',
+						data:{bno : bno},
+						success:function(result){
+							if (result == 1) {
+								alert("추천 되었습니다.");
+								location.href="detail?no="+bno;
+							}else{
+								alert("이미 추천했습니다.");
+							}
+						},
+						error:function(request, status, error){
+						alert("오류 : 관리자에게 문의하세요");
+					}
+				});//ajax end
+			}
+		});
+		// 댓글 삭제하기
 	    $(".commentDelete").click(function(){
 	         if(confirm("댓글을 삭제할까요?")) {
 	            let cno = $(this).prev().val();
@@ -146,6 +171,7 @@
             <div class="detailCONTENT">
                 ${detail.content}
             </div>
+            <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">
             <button onclick="selectBoard()" value="${detail.inout}">목록</button>
         </div>
 
