@@ -33,6 +33,8 @@ public class Write extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("mid") != null && session.getAttribute("mno") != null && session.getAttribute("mname") != null) {
 
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = new BoardDTO();
@@ -55,9 +57,12 @@ public class Write extends HttpServlet {
 				response.sendRedirect("./outboard");
 			}
 		} else {
-			response.sendRedirect("./error.jsp");
+			response.sendRedirect("./login");
 		}
-
+		} else {
+			response.sendRedirect("./login");
+		}
+			
 	}
 
 }

@@ -8,9 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="./js/menu.js"></script>
-<script type="text/javascript">
-	
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
 	<header>
@@ -18,7 +17,7 @@
 	</header>
       <h1>해외 여행 게시판</h1>
 	<article>
-		<button onclick="url('./write?write=1')" >글쓰기</button>
+		<button onclick="writebtn()" >글쓰기</button>
 		<div>
 			<a href="./outboard?write=1"> | 전체 |</a>
 			<a href="./outboard?write=1&category=공지사항">공지사항 |</a>			
@@ -97,8 +96,21 @@
 			</table>
 		</div>
 		<div>
-			<button onclick="url('./write?write=1')">글쓰기</button>
+			<button onclick="writebtn()">글쓰기</button>
+			
 		</div>
 	</article>
+	<script type="text/javascript">
+		function writebtn(){
+			var sn = '<%=(String)session.getAttribute("mid")%>';
+			if(sn == "null"){
+				alert("로그인하세요");
+				location.href="./login";
+			} else{
+				location.href="./write?write=1";
+			}
+			
+			}
+	</script>
 </body>
 </html>
