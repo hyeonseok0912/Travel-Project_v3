@@ -20,10 +20,10 @@
 	<article>
 		<button onclick="url('./write?write=1')" >글쓰기</button>
 		<div>
-			<a> | 전체 |</a>
-			<a>공지사항 |</a>
-			<a>정보 |</a>
-			<a>잡담 |</a>
+			<a href="./outboard?write=1"> | 전체 |</a>
+			<a href="./outboard?write=1&category=공지사항">공지사항 |</a>			
+			<a href="./outboard?write=1&category=여행정보">여행정보 |</a>
+			<a href="./outboard?write=1&category=잡담">잡담 |</a>
 		</div>
     	<div>
         	<table>
@@ -38,6 +38,47 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:choose>
+					<c:when test="${param.category eq '공지사항'}">
+					<c:forEach items="${list}" var="row">
+            		<tr>
+        	   			<c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '공지사항'}">
+						<td>${row.no}</td>
+						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
+						<td>${row.write}</td>
+						<td>${row.date}</td>
+						<td>${row.count}</td>
+						<td>${row.like}</td>
+						</c:if>
+					</tr>
+					</c:forEach></c:when>
+					<c:when test="${param.category eq '여행정보'}">
+					<c:forEach items="${list}" var="row">
+            		<tr>
+        	   			<c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '여행정보'}">
+						<td>${row.no}</td>
+						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
+						<td>${row.write}</td>
+						<td>${row.date}</td>
+						<td>${row.count}</td>
+						<td>${row.like}</td>
+						</c:if>
+					</tr>
+					</c:forEach></c:when>
+					<c:when test="${param.category eq '잡담'}">
+					<c:forEach items="${list}" var="row">
+            		<tr>
+        	   			<c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '잡담'}">
+						<td>${row.no}</td>
+						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
+						<td>${row.write}</td>
+						<td>${row.date}</td>
+						<td>${row.count}</td>
+						<td>${row.like}</td>
+						</c:if>
+					</tr>
+					</c:forEach></c:when>
+					<c:otherwise>
 					<c:forEach items="${list}" var="row">
             		<tr>
         	   			<c:if test="${row.inout eq 1 && row.del ne 0}">
@@ -50,6 +91,8 @@
 						</c:if>
 					</tr>
 					</c:forEach>
+					</c:otherwise>
+					</c:choose>
 				</tbody>
 			</table>
 		</div>

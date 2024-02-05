@@ -19,32 +19,34 @@ import com.travel.util.Util;
 @WebServlet("/outboard")
 public class Outboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public Outboard() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();	
-		BoardDAO dao = new BoardDAO();
-		list = dao.outboardList();
-		
-		request.setAttribute("list", list);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("outboard.jsp");
-		rd.forward(request, response);	
+	public Outboard() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		BoardDAO dao = new BoardDAO();
+
+		list = dao.outboardList();
+		request.setAttribute("list", list);
+		RequestDispatcher rd = request.getRequestDispatcher("outboard.jsp");
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		BoardDTO dto = new BoardDTO();
-		
-		dto.setMid((String)session.getAttribute("mid"));
-		dto.setMname((String)session.getAttribute("mname"));
+
+		dto.setMid((String) session.getAttribute("mid"));
+		dto.setMname((String) session.getAttribute("mname"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
-		
-		RequestDispatcher rd = request.getRequestDispatcher("./write?write="+request.getParameter("write"));
+
+		RequestDispatcher rd = request.getRequestDispatcher("./write?write=" + request.getParameter("write"));
 		rd.forward(request, response);
+
 	}
 
 }
