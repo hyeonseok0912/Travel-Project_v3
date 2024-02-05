@@ -96,7 +96,7 @@
             }
         });
         
-        $("#commentLike2").click(function(){
+        $(".commentLike2").click(function(){
 			let cno = $(this).prev().val();
 			let clike = $(this).siblings('.clike').val();
 		 	let bno = ${detail.no };
@@ -110,7 +110,7 @@
 						
 						 location.href = "./detail?no="+ bno;
 					} else {
-						alert("좋아요가 안되요")
+						alert("이미 추천하셨습니다.")
 						
 					}
 				}, error:function(request, status, error){
@@ -176,7 +176,7 @@
             				    	</c:when>
             				    	<c:when test="${sessionScope.mname ne null && co.mid ne sessionScope.mid }">
             				    	<input type="hidden" class="cno" value="${co.cno }">
-            				    	<img id="commentLike2" alt="like" src="./img/like1.png">
+            				    	<img class="commentLike2" alt="like" src="./img/like1.png">
             				    	<span style="font-size: small;">${co.clike }</span>
             				    	<input type="hidden" class="clike" value="${co.clike }">
             				    	</c:when>
