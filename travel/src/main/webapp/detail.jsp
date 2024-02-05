@@ -22,7 +22,8 @@
 		}
 	}
 	function selectBoard() {
-		if(${detail.inout} == 0){
+		var inout = '<%=request.getParameter("inout")%>';
+		if(inout == 0){
 			location.href="./inboard";
 		} else {
 			location.href="./outboard";
@@ -172,7 +173,7 @@
                 ${detail.content}
             </div>
             <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">
-            <button onclick="selectBoard()" value="${detail.inout}">목록</button>
+            <button onclick="selectBoard()" value="${param.inout}">목록</button>
         </div>
 
         <!-- 댓글쓰기 -->
