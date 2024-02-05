@@ -42,6 +42,7 @@ public class Outboard extends HttpServlet {
 		dto.setMid((String)session.getAttribute("mid"));
 		dto.setMname((String)session.getAttribute("mname"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
+		
 		RequestDispatcher rd = request.getRequestDispatcher("./write?write="+request.getParameter("write"));
 		rd.forward(request, response);
 	}

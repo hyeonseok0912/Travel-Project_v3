@@ -38,6 +38,7 @@
       
       <article>
       	<h2>내가 쓴 게시글</h2>
+      	<c:if test="${not empty mylist }">
       		<table>
       			<tr>
       				<th>번호</th>
@@ -46,6 +47,7 @@
       				<th>조회</th>
       				<th>추천</th>
       			</tr>
+      			
       			<c:forEach items="${mylist }" var="row">
       				<tr>
       					<td>${row.no}</td>
@@ -56,11 +58,36 @@
       				</tr>
       			</c:forEach>
       		</table>
+      	</c:if>
+      	
+      	<c:if test="${empty mylist }">
+      		<p>게시글이 없습니다. 게시글을 작성해보세요.</p>
+      	</c:if>
       </article>
       <hr>
       
       <article>
       	<h2>내가 쓴 댓글</h2>
+      	<c:if test="${not empty myclist }">
+      		<table>
+      			<tr>
+      				<th>댓글</th>
+      				<th>등록일</th>
+      				<th>추천</th>
+      			</tr>
+      			<c:forEach items="${myclist }" var="mco">
+					<tr>
+						<td><a href="./detail?no=${mco.tboard_no}">${mco.ccomment }<br></a></td>
+						<td>${mco.cdate }</td>
+						<td>${mco.clike }</td>
+					</tr>
+      			</c:forEach>
+      		</table>
+      	</c:if>
+      	
+      	<c:if test="${empty mylist }">
+      		<p>댓글이 없습니다. 댓글을 작성해보세요.</p>
+      	</c:if>
       </article>
       
    </div>

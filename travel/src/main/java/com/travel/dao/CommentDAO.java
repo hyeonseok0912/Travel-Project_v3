@@ -52,4 +52,26 @@ public class CommentDAO extends AbstractDAO {
 		
 		return result;
 	}
+	
+	// 댓글 좋아요 올리기
+		public int commentLike(CommentDTO dto) {
+			Connection con = db.getConnection();
+			PreparedStatement pstmt = null;
+			int result = 0;
+			String sql = "UPDATE tcomment SET clike=clike+1 WHERE cno=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, dto.getCno());
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(null, pstmt, con);
+				
+			}
+			
+			return result;
+		}
 }

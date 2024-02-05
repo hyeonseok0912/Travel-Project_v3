@@ -12,6 +12,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+
+
 </head>
 <body>
 	<header>
@@ -23,6 +28,12 @@
 				<div>
 					<form action="./write" method="post">
 						<input type="hidden" name="write" value="${param.write}">
+						<select name="category">
+							<option value="공지사항" name="header">공지사항</option>
+							<option value="여행정보" name="header">여행정보</option>
+							<option value="잡담" name="header" selected="seleteted">잡담</option>
+							<option value="여행후기" name="header">여행후기</option>
+						</select>
 						<input type="text" name="title" id="title">
 						<textarea id="summernote" name="content"></textarea>
 						<button type="submit" >저장</button>

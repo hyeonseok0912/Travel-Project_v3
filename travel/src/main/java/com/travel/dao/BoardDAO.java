@@ -17,8 +17,8 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout"
-				+ " FROM tboard WHERE tboard_inout=0";
+		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
+				+ " FROM tboard WHERE tboard_inout=0 ORDER BY tboard_date DESC";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -33,6 +33,8 @@ public class BoardDAO extends AbstractDAO {
 				e.setDate(rs.getString("tboard_date"));
 				e.setLike(rs.getInt("tboard_like"));
 				e.setInout(rs.getInt("tboard_inout"));
+				e.setDel(rs.getInt("tboard_del"));
+				e.setHeader(rs.getString("tboard_header"));
 				list.add(e);
 			}
 		} catch (SQLException e) {
@@ -48,8 +50,8 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout"
-				+ " FROM tboard WHERE tboard_inout=1";
+		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
+				+ " FROM tboard WHERE tboard_inout=1 ORDER BY tboard_date DESC";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -64,6 +66,8 @@ public class BoardDAO extends AbstractDAO {
 				e.setDate(rs.getString("tboard_date"));
 				e.setLike(rs.getInt("tboard_like"));
 				e.setInout(rs.getInt("tboard_inout"));
+				e.setDel(rs.getInt("tboard_del"));
+				e.setHeader(rs.getString("tboard_header"));
 				list.add(e);
 			}
 
@@ -82,7 +86,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, b.tboard_date, b.tboard_inout,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count "
+		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, m.mid AS mid ,b.tboard_date, b.tboard_inout, b.tboard_del ,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count "
 				+ "FROM tboard b JOIN tmember m ON b.mno=m.mno " + "WHERE b.tboard_no=?";
 
 		try {
@@ -94,9 +98,11 @@ public class BoardDAO extends AbstractDAO {
 				dto.setTitle(rs.getString("tboard_title"));
 				dto.setContent(rs.getString("tboard_content"));
 				dto.setInout(rs.getInt("tboard_inout"));
+				dto.setInout(rs.getInt("tboard_del"));
 				dto.setWrite(rs.getString("tboard_write"));
 				dto.setDate(rs.getString("tboard_date"));
 				dto.setCount(rs.getInt("tboard_count"));
+				dto.setMid(rs.getString("mid"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,8 +151,8 @@ public class BoardDAO extends AbstractDAO {
 		int result = 0;
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write) "
-				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?))";
+		String sql = "INSERT INTO tboard (tboard_title, tboard_content,tboard_inout, mno, tboard_write, tboard_header) "
+				+ "VALUES (?, ?, ?, (SELECT mno FROM tmember WHERE mid=?),(SELECT mname FROM tmember WHERE mid=?),?)";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -154,7 +160,8 @@ public class BoardDAO extends AbstractDAO {
 			pstmt.setString(2, dto.getContent());
 			pstmt.setInt(3, dto.getInout());
 			pstmt.setString(4, dto.getMid());
-			pstmt.setString(5, dto.getMname());
+			pstmt.setString(5, dto.getMid());
+			pstmt.setString(6, dto.getHeader());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -185,5 +192,73 @@ public class BoardDAO extends AbstractDAO {
 			close(null, pstmt, con);
 		}
 		return result;
+	}
+
+	public int writeDel(BoardDTO dto) {
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE tboard SET tboard_del = '0' WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNo());
+			pstmt.setString(2, dto.getMid());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
+		}
+		return result;
+	}
+
+	public void countup(int no, String mid) {
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "SELECT COUNT(*) FROM tvisit WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+		ResultSet rs = null;
+			
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setString(2, mid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result  = rs.getInt(1);
+					if (result == 0) {
+						realCountUp(no,mid);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, con);
+			}
+		}
+
+	private void realCountUp(int no, String mid) {
+		
+			Connection con = db.getConnection();
+			PreparedStatement insertpstmt = null;
+			PreparedStatement updatepstmt = null;
+			String insertsql = "INSERT INTO tvisit(tboard_no, mno) VALUES (? , (SELECT mno FROM tmember WHERE mid=?))";
+			String updatesql = "UPDATE tboard SET tboard_count=tboard_count+1 WHERE tboard_no=?";		
+			
+			try {
+				insertpstmt = con.prepareStatement(insertsql);
+				updatepstmt = con.prepareStatement(updatesql);
+				insertpstmt.setInt(1, no);
+				insertpstmt.setString(2, mid);
+				updatepstmt.setInt(1, no);
+				
+				insertpstmt.executeUpdate();
+				updatepstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(null, updatepstmt, con);
+		}
 	}
 }

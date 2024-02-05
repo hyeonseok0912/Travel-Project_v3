@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.travel.dao.MemberDAO;
 import com.travel.dto.BoardDTO;
+import com.travel.dto.CommentDTO;
 import com.travel.dto.MemberDTO;
 
 @WebServlet("/myInfo")
@@ -50,7 +51,10 @@ public class MyInfo extends HttpServlet {
 			// 내가 쓴 글 보기
 			List<BoardDTO> mylist = dao.mylist(dto);
 			request.setAttribute("mylist", mylist);
-			System.out.println(mylist);
+
+			// 내가 쓴 댓글 보기
+			List<CommentDTO> myclist = dao.myclist(dto);
+			request.setAttribute("myclist", myclist);
 
 			RequestDispatcher rd = request.getRequestDispatcher("myInfo.jsp");
 			rd.forward(request, response);
@@ -64,19 +68,18 @@ public class MyInfo extends HttpServlet {
 		// 세션 만들기
 		HttpSession session = request.getSession();
 
-		if (request.getParameter("newPW") == request.getParameter("newPWcheck")) {
-			// 비번 수정
-			MemberDTO dto = new MemberDTO();
-			dto.setMpw(request.getParameter("newPW"));
+		// 비번 수정
+		MemberDTO dto = new MemberDTO();
+		dto.setMpw(request.getParameter("newPW"));
 
-			// dto에 세션값 담기(mid 매치시켜주기)
-			dto.setMid((String) session.getAttribute("mid"));
+		// dto에 세션값 담기(mid 매치시켜주기)
+		dto.setMid((String) session.getAttribute("mid"));
 
-			MemberDAO dao = new MemberDAO();
-			int result = dao.newpw(dto);
+		MemberDAO dao = new MemberDAO();
+		int result = dao.newpw(dto);
 
-			System.out.println(result);
-		}
+		System.out.println(result);
+
 	}
 
 }

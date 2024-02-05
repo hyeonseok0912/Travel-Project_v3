@@ -19,6 +19,12 @@
       <h1>해외 여행 게시판</h1>
 	<article>
 		<button onclick="url('./write?write=1')" >글쓰기</button>
+		<div>
+			<a> | 전체 |</a>
+			<a>공지사항 |</a>
+			<a>정보 |</a>
+			<a>잡담 |</a>
+		</div>
     	<div>
         	<table>
 	        	<thead>
@@ -34,9 +40,9 @@
 				<tbody>
 					<c:forEach items="${list}" var="row">
             		<tr>
-        	   			<c:if test="${row.inout eq 1 }">
+        	   			<c:if test="${row.inout eq 1 && row.del ne 0}">
 						<td>${row.no}</td>
-						<td><a href="./detail?no=${row.no}">${row.title}</a></td>                    
+						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
 						<td>${row.write}</td>
 						<td>${row.date}</td>
 						<td>${row.count}</td>

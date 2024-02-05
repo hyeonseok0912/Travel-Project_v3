@@ -40,9 +40,11 @@ public class Write extends HttpServlet {
 		dto.setMid((String) session.getAttribute("mid"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
-		dto.setMname((String) session.getAttribute("mid"));
+		dto.setMname((String) session.getAttribute("mname"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
-
+		dto.setHeader(request.getParameter("category"));
+		
+		
 		request.setAttribute("write", dto);
 		int result = dao.write(dto);
 
