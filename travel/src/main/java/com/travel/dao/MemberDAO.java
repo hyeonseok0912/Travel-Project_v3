@@ -168,4 +168,55 @@ public class MemberDAO extends AbstractDAO {
 	      return result;
 	   }
 
+	public String idFind(MemberDTO dto) {
+		String result = null;
+	    Connection con = db.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT mid FROM tmember WHERE mname = ?";
+	    
+	    try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMname());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("mid");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+	    		 
+		return result;
+	}
+
+	public String pwFind(MemberDTO dto) {
+		String result = null;
+	    Connection con = db.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT mpw FROM tmember WHERE mname = ? and mid = ?";
+	    
+	    try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMname());
+			pstmt.setString(2, dto.getMid());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("mpw");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+
+	    return result;
+	}
+
 }
