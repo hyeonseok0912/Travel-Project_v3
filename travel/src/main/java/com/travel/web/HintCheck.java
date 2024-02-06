@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.travel.dao.MemberDAO;
 import com.travel.dto.MemberDTO;
 
-@WebServlet("/hintFind")
-public class HintFind extends HttpServlet {
+@WebServlet("/hintCheck")
+public class HintCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public HintFind() {
+    public HintCheck() {
         super();
     }
 
@@ -26,24 +26,24 @@ public class HintFind extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		
 		String name = request.getParameter("name");
-		//System.out.println(name);
-		MemberDTO dto = new MemberDTO();
-		dto.setMname(name);
+		String hint = request.getParameter("hint");
 		
+		//System.out.println(name);
+		//System.out.println(hint);
+		
+		MemberDTO dto = new MemberDTO();
 		MemberDAO dao = new MemberDAO();
-		String result = dao.hintFind(dto);
-		//System.out.println(result);
-		if(result == null) {
-			result = "";
-		}
+		dto.setMname(name);
+		dto.setManswer(hint);
+		
+		int result = dao.hintCheck(dto);
 		//System.out.println("result 값은 ? : " + result);
-		PrintWriter pw = response.getWriter();
-		pw.print(result);
-		pw.close();
+		PrintWriter pwr = response.getWriter();
+		pwr.print(result);
+		pwr.close();
+		
+		
 	}
 
 }

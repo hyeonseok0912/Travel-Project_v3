@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.travel.dao.MemberDAO;
 import com.travel.dto.MemberDTO;
 
-@WebServlet("/pwFind")
-public class PwFind extends HttpServlet {
+@WebServlet("/idHintFind")
+public class IdHintFind extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public PwFind() {
+    public IdHintFind() {
         super();
     }
 
@@ -26,31 +26,24 @@ public class PwFind extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		String name = request.getParameter("name");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		
-		//System.out.println("이름 : " + name);
-		//System.out.println("아이디는 : " + id);
-		//System.out.println("pw : " + pw);
-		
+		//System.out.println(name);
 		MemberDTO dto = new MemberDTO();
-		MemberDAO dao = new MemberDAO();
 		dto.setMname(name);
-		dto.setMid(id);
-		dto.setMpw(pw);
 		
-		int result = dao.pwFind(dto);
-		if(result == 1) {
-			//System.out.println("result 값은 ? : " + result);
-			PrintWriter pwr = response.getWriter();
-			pwr.print(result);
-			pwr.close();
-		} else {
-			response.sendRedirect("./error.jsp");
+		MemberDAO dao = new MemberDAO();
+		String result = dao.idHintFind(dto);
+		//System.out.println(result);
+		if(result == null) {
+			result = "";
 		}
-		
-		
+		//System.out.println("result 값은 ? : " + result);
+		PrintWriter pw = response.getWriter();
+		pw.print(result);
+		pw.close();
 	}
 
 }
