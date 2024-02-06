@@ -45,13 +45,12 @@ public class Write extends HttpServlet {
 		dto.setHeader(request.getParameter("category"));
 
 		request.setAttribute("write", dto);
-
 		int result = dao.write(dto);
-
-		if (session.getAttribute("mid") != null && session.getAttribute("mno") != null && session.getAttribute("mname") != null) {
+		System.out.println(session.getAttribute("mno"));
+		if (session.getAttribute("mid") != null && session.getAttribute("mname") != null) {
 
 			if (result == 1) {
-				if (dto.getInout() == 0) {
+				if (Util.str2Int(request.getParameter("write")) == 0) {
 					response.sendRedirect("./inboard");
 				} else {
 					response.sendRedirect("./outboard");

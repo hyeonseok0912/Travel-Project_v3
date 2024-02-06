@@ -39,14 +39,13 @@ public class Outboard extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		BoardDTO dto = new BoardDTO();
+		if (session.getAttribute("mid") != null && session.getAttribute("mname") != null) {
 
-		dto.setMid((String) session.getAttribute("mid"));
-		dto.setMname((String) session.getAttribute("mname"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
-
 		RequestDispatcher rd = request.getRequestDispatcher("./write?write=" + request.getParameter("write"));
 		rd.forward(request, response);
-
+		} else 
+			response.sendRedirect("./login");
 	}
 
 }
