@@ -38,12 +38,12 @@
 				</thead>
 				<tbody>
 					<c:choose>
-					<c:when test="${param.category eq '공지사항'}">
+					<c:when test="${param.category eq '공지사항' && fn:length(list) gt 0}">
 					<c:forEach items="${list}" var="row">
             		<tr>
         	   			<c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '공지사항'}">
 						<td>${row.no}</td>
-						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
+						<td><a href="./detail?page=${page}&no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
 						<td>${row.write}</td>
 						<td>${row.date}</td>
 						<td>${row.count}</td>
@@ -94,9 +94,23 @@
 					</c:choose>
 				</tbody>
 			</table>
+			<button name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
+			<c:set var="totalPage" value="${totalCount / 10 }"/>
+			<fmt:parseNumber integerOnly="true" value="${totalPage }" var="totalPage" />
+			<c:if test="${totalCount % 10 gt 0 }"><c:set var="totalPage" value="${totalPage +1 }"/></c:if>
+			<c:set var="startPage" value="1"/>
+			<c:if test="${page gt 5}"><c:set var="startPage" value="${page - 5}"/></c:if>
+			<c:set var="endPage" value="${startPage+9}"/>
+			<c:if test="${endPage gt totalPage}"><c:set var="endPage" value="${totalPage}"/></c:if>
+			<div class="paging">
+				<button onclick="paging(1)">⏮</button>
+                <button <c:if test="${page -10 lt 1}">disabled="disabled"</c:if> onclick="paging(${page - 10})">◀</button>
+                <c:forEach begin="${startPage }" end="${endPage }" var="p"><button <c:if test="${page eq p}">class="currentBtn"</c:if> onclick="paging(${p})">${p}</button></c:forEach>
+				<button <c:if test="${page + 10 gt totalPage}">disabled="disabled"</c:if> onclick="paging(${page + 10})">▶</button>
+				<button onclick="paging(${totalPage})">⏭</button>
 		</div>
 		<div>
-			<button name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
+			
 			
 		</div>
 	</article>

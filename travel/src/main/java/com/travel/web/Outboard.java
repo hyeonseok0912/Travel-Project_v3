@@ -26,11 +26,18 @@ public class Outboard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		int page = 1;
+		
 		BoardDAO dao = new BoardDAO();
-
-		list = dao.outboardList();
+		
+		List<BoardDTO> list = dao.outboardList(page);
+		
+		int totalCount = dao.totalCount();
+		
 		request.setAttribute("list", list);
+		request.setAttribute("totalCount", totalCount);
+		request.setAttribute("page", page);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("outboard.jsp");
 		rd.forward(request, response);
 	}
