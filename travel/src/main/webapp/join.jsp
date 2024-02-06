@@ -153,6 +153,14 @@
 								<div class="input-group mb-2 pw-alert">
 									<p class="alert">올바른 Password를 입력하세요</p>
 								</div>
+								<div class="input-groub mb-2">
+									<label class="input-group-text">힌트 질문</label>
+									<input type="text" id="mhint" name="mhint" class="form-control" placeholder="힌트로 쓰일 질문을 입력해주세요">
+								</div>
+								<div class="input-groub mb-2">
+									<label class="input-group-text">힌트 답변</label>
+									<input type="text" id="manswer" name="manswer" class="form-control" placeholder="힌트에 대한 답변을 입력해주세요">
+								</div>
 								<div class="input-group mb-2">
 									<button type="reset" class="btn btn-danger">초기화</button>
 									<button id="joinBtn" type="submit" disabled="disabled" class="btn btn-primary">가입하기</button>

@@ -6,6 +6,16 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <script type="text/javascript" src="./js/menu.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // 로그인 실패 시
+        var errorMSG = '${errorMSG}';
+        if(errorMSG && errorMSG.trim() !== ''){
+            alert(errorMSG);
+        }
+    });
+</script>
 </head>
 <body>
 	<div>

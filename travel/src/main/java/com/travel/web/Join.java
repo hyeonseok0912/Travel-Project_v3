@@ -27,13 +27,15 @@ public class Join extends HttpServlet {
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       request.setCharacterEncoding("UTF-8");
-
+      
       if(request.getParameter("id") != null && request.getParameter("pw1") != null 
             && request.getParameter("name") != null) {
          MemberDTO dto = new MemberDTO();
          dto.setMid(request.getParameter("id"));
          dto.setMpw(request.getParameter("pw1"));
          dto.setMname(request.getParameter("name"));
+         dto.setMhint(request.getParameter("mhint"));
+         dto.setManswer(request.getParameter("manswer"));
          
          MemberDAO dao = new MemberDAO();
          int result = dao.join(dto);

@@ -2,7 +2,7 @@ package com.travel.dto;
 
 public class MemberDTO {
 	private int mno, mgrade, count;
-	private String mid, mpw, mname, mdate;
+	private String mid, mpw, mname, mdate, mhint, manswer;
 	public int getMno() {
 		return mno;
 	}
@@ -44,6 +44,18 @@ public class MemberDTO {
 	}
 	public void setMdate(String mdate) {
 		this.mdate = mdate;
+	}
+	public String getMhint() {
+		return mhint;
+	}
+	public void setMhint(String mhint) {
+		this.mhint = mhint;
+	}
+	public String getManswer() {
+		return manswer;
+	}
+	public void setManswer(String manswer) {
+		this.manswer = manswer;
 	}
 	
 }

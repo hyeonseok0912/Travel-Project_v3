@@ -38,10 +38,13 @@ public class Login extends HttpServlet {
 		if(dto.getCount() == 1) {
 			session.setAttribute("mname", dto.getMname());
 			session.setAttribute("mid", dto.getMid());
-			
+			session.setAttribute("mhint", dto.getMhint());
+			session.setAttribute("manswer", dto.getManswer());
 			response.sendRedirect("./index");
 		}else {
-			response.sendRedirect("./login?error=000");
+			request.setAttribute("errorMSG", "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.");
+	        RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+	        rd.forward(request, response);
 		}
 	}
 
