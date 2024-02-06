@@ -16,7 +16,7 @@
    <article>
       <div class="title">
       <h1>국내 여행 게시판</h1>
-         <button name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
+         <button name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
         <div>
 			<a href="./inboard?write=0"> | 전체 |</a>
 			<a href="./inboard?write=0&category=공지사항">공지사항 |</a>			
@@ -98,7 +98,7 @@
          </div>
       </div>
       <div>
-			<button name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
+			<button name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
 	 </div>
 
    </article>

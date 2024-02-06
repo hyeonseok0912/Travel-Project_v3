@@ -51,7 +51,6 @@ public class Write extends HttpServlet {
 		
 		request.setAttribute("write", dto);
 		int result = dao.write(dto);
-		System.out.println(session.getAttribute("mno"));
 		if (session.getAttribute("mid") != null && session.getAttribute("mname") != null) {
 
 			if (result == 1) {
