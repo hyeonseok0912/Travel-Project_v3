@@ -105,7 +105,7 @@
 						<c:set var="totalPage" value="${totalPage +1 }"/>
 					</c:if>
 					전체 페이지 수:<c:out value="${totalPage }"/>
-					<c:set var ="startPage" value="1"/>${startPage }
+					<c:set var ="startPage" value="1"/>
 					<c:if test="${page gt 5}">
 						<c:set var="startPage" value="${page-5 }"/>
 					</c:if>
@@ -114,13 +114,26 @@
 						<c:set var="startPage" value="${totalPage - 9 }"/>
 						<c:set var="endPage" value="${totalPage }"/>
 					</c:if>
-            </div>
-         </div>
-      </div>
-      <div>
+							<nav aria-label="Page navigation example">
+  								<ul class="pagination">
+									<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
+   									<c:forEach begin="${startPage }" end="${endPage }" var="p">
+   									<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li>
+									</c:forEach>
+									<li class="page-item"><button class="page-link" onclick="paging(${page+10})" <c:if test="${page + 10 gt totalPage }">disabled="disabled"</c:if>>다음</button></li>
+ 								 </ul>
+							</nav>
+						</div>
+            		</div>
+         		</div>
+      		<div>
 			<button name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
-	 </div>
-
-   </article>
+	 		</div>
+<script type="text/javascript">
+	function paging(no){
+		location.href="inboard?page="+no;
+}
+</script>
+</article>
 </body>
 </html>

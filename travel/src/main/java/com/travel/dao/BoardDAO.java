@@ -366,11 +366,11 @@ public class BoardDAO extends AbstractDAO {
 		return result;
 	}
 
-	public int totalCount() {
+	public int intotalCount() { // 국내게시판 총 게시물 수[민우]
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) FROM boardview";
+		String sql = "SELECT COUNT(*) FROM boardview WHERE tboard_inout=0";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -386,5 +386,4 @@ public class BoardDAO extends AbstractDAO {
 		}
 		return result;
 	}
-
 }

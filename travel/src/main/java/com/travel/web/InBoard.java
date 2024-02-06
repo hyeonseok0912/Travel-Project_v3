@@ -34,7 +34,7 @@ public class InBoard extends HttpServlet {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		BoardDAO dao = new BoardDAO();
 		list = dao.inboardList(page);
-		int totalCount = dao.totalCount();
+		int totalCount = dao.intotalCount();//국내게시판 총게시물 수 [민우]
 		
 		request.setAttribute("page", page);
 		request.setAttribute("totalCount", totalCount);
