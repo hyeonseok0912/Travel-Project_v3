@@ -1,6 +1,7 @@
 package com.travel.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -54,7 +55,21 @@ public class Detail extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		HttpSession session = request.getSession();
+		BoardDAO dao = new BoardDAO();
+		BoardDTO dto = new BoardDTO();
+		int result = 0;
+		int bno =Util.str2Int(request.getParameter("bno"));
+		
+		//게시판 추천 올리기[민우]
+		if(session.getAttribute("mid")!=null) {
+			dto.setMid((String)session.getAttribute("mid"));
+			dto.setNo(bno);
+			result = dao.boardUp(dto);
+		}
+		PrintWriter pw = response.getWriter();
+		pw.print(result);
 	}
 
 }

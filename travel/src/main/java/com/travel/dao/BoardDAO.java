@@ -18,7 +18,7 @@ public class BoardDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
-				+ " FROM tboard WHERE tboard_inout=0 ORDER BY tboard_date DESC";
+				+ " FROM boardview WHERE tboard_inout=0 ORDER BY tboard_date DESC";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -219,46 +219,148 @@ public class BoardDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		String sql = "SELECT COUNT(*) FROM tvisit WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
 		ResultSet rs = null;
-			
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			pstmt.setString(2, mid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				int result  = rs.getInt(1);
-					if (result == 0) {
-						realCountUp(no,mid);
-					}
+				int result = rs.getInt(1);
+				if (result == 0) {
+					realCountUp(no, mid);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				close(rs, pstmt, con);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
 		}
+	}
 
 	private void realCountUp(int no, String mid) {
-		
-			Connection con = db.getConnection();
-			PreparedStatement insertpstmt = null;
-			PreparedStatement updatepstmt = null;
-			String insertsql = "INSERT INTO tvisit(tboard_no, mno) VALUES (? , (SELECT mno FROM tmember WHERE mid=?))";
-			String updatesql = "UPDATE tboard SET tboard_count=tboard_count+1 WHERE tboard_no=?";		
-			
-			try {
-				insertpstmt = con.prepareStatement(insertsql);
-				updatepstmt = con.prepareStatement(updatesql);
-				insertpstmt.setInt(1, no);
-				insertpstmt.setString(2, mid);
-				updatepstmt.setInt(1, no);
-				
-				insertpstmt.executeUpdate();
-				updatepstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				close(null, updatepstmt, con);
+
+		Connection con = db.getConnection();
+		PreparedStatement insertpstmt = null;
+		PreparedStatement updatepstmt = null;
+		String insertsql = "INSERT INTO tvisit(tboard_no, mno) VALUES (? , (SELECT mno FROM tmember WHERE mid=?))";
+		String updatesql = "UPDATE tboard SET tboard_count=tboard_count+1 WHERE tboard_no=?";
+
+		try {
+			insertpstmt = con.prepareStatement(insertsql);
+			updatepstmt = con.prepareStatement(updatesql);
+			insertpstmt.setInt(1, no);
+			insertpstmt.setString(2, mid);
+			updatepstmt.setInt(1, no);
+
+			insertpstmt.executeUpdate();
+			updatepstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, updatepstmt, con);
 		}
+	}
+
+	public List<BoardDTO> inHotList() {
+
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM tboard WHERE tboard_inout=0 ORDER BY tboard_like DESC LIMIT 10";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDTO e = new BoardDTO();
+				e.setNo(rs.getInt("tboard_no"));
+				e.setTitle(rs.getString("tboard_title"));
+				e.setInout(rs.getInt("tboard_inout"));
+				e.setHeader(rs.getString("tboard_header"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	public List<BoardDTO> outHotList() {
+
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM tboard WHERE tboard_inout=1 ORDER BY tboard_like DESC LIMIT 10";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDTO e = new BoardDTO();
+				e.setNo(rs.getInt("tboard_no"));
+				e.setTitle(rs.getString("tboard_title"));
+				e.setInout(rs.getInt("tboard_inout"));
+				e.setHeader(rs.getString("tboard_header"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return list;
+	}
+	public int boardUp(BoardDTO dto) {// 게시물 추천 중복 확인[미우]
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "SELECT COUNT(*) FROM tblike WHERE tboard_no=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNo());
+			pstmt.setString(2, dto.getMid());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getInt(1) == 0) {
+					result = realUp(dto);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+
+	private int realUp(BoardDTO dto) {//게시물 추천 올리기[미누]
+		int result = 0;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO tblike (mno, tboard_no) VALUES ((SELECT mno FROM tmember WHERE mid=?), ?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMid());
+			pstmt.setInt(2, dto.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(null, pstmt, con);
+		}
+		return result;
 	}
 }

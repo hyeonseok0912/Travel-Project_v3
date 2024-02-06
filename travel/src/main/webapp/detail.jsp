@@ -22,7 +22,8 @@
 		}
 	}
 	function selectBoard() {
-		if(${detail.inout} == 0){
+		var inout = '<%=request.getParameter("inout")%>';
+		if(inout == 0){
 			location.href="./inboard";
 		} else {
 			location.href="./outboard";
@@ -39,8 +40,33 @@
 		location.href="./login";
 	}
 	
-	// 댓글 삭제하기
+	
     $(document).ready(function(){
+   	 	//게시글 추천하기[민우]
+			$(".b_recommen").click(function(){
+				if(confirm("추천하시겠습니까?")){
+					let bno = ${detail.no};
+				
+					$.ajax({
+						url:'./detail',
+						type:'post',
+						dataType:'text',
+						data:{bno : bno},
+						success:function(result){
+							if (result == 1) {
+								alert("추천 되었습니다.");
+								location.href="detail?no="+bno;
+							}else{
+								alert("이미 추천했습니다.");
+							}
+						},
+						error:function(request, status, error){
+						alert("오류 : 관리자에게 문의하세요");
+					}
+				});//ajax end
+			}
+		});
+		// 댓글 삭제하기
 	    $(".commentDelete").click(function(){
 	         if(confirm("댓글을 삭제할까요?")) {
 	            let cno = $(this).prev().val();
@@ -96,7 +122,7 @@
             }
         });
         
-        $("#commentLike2").click(function(){
+        $(".commentLike2").click(function(){
 			let cno = $(this).prev().val();
 			let clike = $(this).siblings('.clike').val();
 		 	let bno = ${detail.no };
@@ -110,7 +136,7 @@
 						
 						 location.href = "./detail?no="+ bno;
 					} else {
-						alert("좋아요가 안되요")
+						alert("이미 추천하셨습니다.")
 						
 					}
 				}, error:function(request, status, error){
@@ -146,7 +172,8 @@
             <div class="detailCONTENT">
                 ${detail.content}
             </div>
-            <button onclick="selectBoard()" value="${detail.inout}">목록</button>
+            <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">
+            <button onclick="selectBoard()" value="${param.inout}">목록</button>
         </div>
 
         <!-- 댓글쓰기 -->
@@ -176,7 +203,7 @@
             				    	</c:when>
             				    	<c:when test="${sessionScope.mname ne null && co.mid ne sessionScope.mid }">
             				    	<input type="hidden" class="cno" value="${co.cno }">
-            				    	<img id="commentLike2" alt="like" src="./img/like1.png">
+            				    	<img class="commentLike2" alt="like" src="./img/like1.png">
             				    	<span style="font-size: small;">${co.clike }</span>
             				    	<input type="hidden" class="clike" value="${co.clike }">
             				    	</c:when>
