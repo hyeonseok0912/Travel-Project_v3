@@ -174,7 +174,7 @@
             </div>
             <c:choose>
             <c:when test="${sessionScope.mname ne null }">
-            <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">
+            <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">${detail.like }
             </c:when>
             </c:choose>
             <button onclick="selectBoard()" value="${param.inout}">목록</button>

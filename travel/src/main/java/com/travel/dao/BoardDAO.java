@@ -86,7 +86,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, m.mid AS mid ,b.tboard_date, b.tboard_inout, b.tboard_del ,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count "
+		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, m.mid AS mid ,b.tboard_date, b.tboard_inout, b.tboard_del ,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count, (SELECT COUNT(*) FROM tblike l WHERE l.tboard_no = b.tboard_no) AS tboard_like "
 				+ "FROM tboard b JOIN tmember m ON b.mno=m.mno " + "WHERE b.tboard_no=?";
 
 		try {
@@ -103,6 +103,7 @@ public class BoardDAO extends AbstractDAO {
 				dto.setDate(rs.getString("tboard_date"));
 				dto.setCount(rs.getInt("tboard_count"));
 				dto.setMid(rs.getString("mid"));
+				dto.setLike(rs.getInt("tboard_like"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
