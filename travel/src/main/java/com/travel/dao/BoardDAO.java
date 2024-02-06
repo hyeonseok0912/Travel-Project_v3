@@ -12,13 +12,12 @@ import com.travel.dto.CommentDTO;
 
 public class BoardDAO extends AbstractDAO {
 
-	public List<BoardDTO> inboardList() {
+	public List<BoardDTO> inboardList(int page) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
-				+ " FROM boardview WHERE tboard_inout=0 ORDER BY tboard_date DESC";
+		String sql = "SELECT * FROM boardview WHERE tboard_inout=0 ORDER BY tboard_date DESC LIMIT ?, 10";
 
 		try {
 			pstmt = con.prepareStatement(sql);

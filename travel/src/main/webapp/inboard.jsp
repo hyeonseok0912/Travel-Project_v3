@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>국내 게시판</title>
+
+<!-- 부트스트랩 사용 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script type="text/javascript" src="./js/menu.js"></script>
 </head>
 <body>
@@ -94,6 +99,21 @@
 					</c:choose>
 				</tbody>
                </table>
+                    전체 글 수 : ${totalCount }개 글이 있습니다 /<c:set var="totalPage" value="${totalCount/10 }"/>
+					<fmt:parseNumber integerOnly="true" value="${totalPage }" var="totalPage"/>
+					<c:if test="${totalCount % 10 gt 0}">
+						<c:set var="totalPage" value="${totalPage +1 }"/>
+					</c:if>
+					전체 페이지 수:<c:out value="${totalPage }"/>
+					<c:set var ="startPage" value="1"/>${startPage }
+					<c:if test="${page gt 5}">
+						<c:set var="startPage" value="${page-5 }"/>
+					</c:if>
+					<c:set var = "endPage" value="${startPage +9 }"/>
+					<c:if test="${endPage gt totalPage }">
+						<c:set var="startPage" value="${totalPage - 9 }"/>
+						<c:set var="endPage" value="${totalPage }"/>
+					</c:if>
             </div>
          </div>
       </div>
