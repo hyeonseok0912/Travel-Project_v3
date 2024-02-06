@@ -26,10 +26,18 @@ public class InBoard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int page = 1;
+		if (request.getParameter("page")!=null && request.getParameter("page") != "") {
+			page = Util.str2Int(request.getParameter("page"));
+		}
+		
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		BoardDAO dao = new BoardDAO();
-		list = dao.inboardList();
-
+		list = dao.inboardList(page);
+		int totalCount = dao.totalCount();
+		
+		request.setAttribute("page", page);
+		request.setAttribute("totalCount", totalCount);
 		request.setAttribute("list", list);
 		RequestDispatcher rd = request.getRequestDispatcher("inboard.jsp");
 		rd.forward(request, response);
