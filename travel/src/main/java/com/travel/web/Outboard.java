@@ -1,7 +1,6 @@
 package com.travel.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -26,11 +25,18 @@ public class Outboard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		int page = 1;
+		
 		BoardDAO dao = new BoardDAO();
-
-		list = dao.outboardList();
+		
+		List<BoardDTO> list = dao.outboardList(page);
+		
+		int totalCount = dao.totalCount();
+		
 		request.setAttribute("list", list);
+		request.setAttribute("totalCount", totalCount);
+		request.setAttribute("page", page);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("outboard.jsp");
 		rd.forward(request, response);
 	}
@@ -39,14 +45,13 @@ public class Outboard extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		BoardDTO dto = new BoardDTO();
+		if (session.getAttribute("mid") != null && session.getAttribute("mname") != null) {
 
-		dto.setMid((String) session.getAttribute("mid"));
-		dto.setMname((String) session.getAttribute("mname"));
 		dto.setInout(Util.str2Int(request.getParameter("write")));
-
 		RequestDispatcher rd = request.getRequestDispatcher("./write?write=" + request.getParameter("write"));
 		rd.forward(request, response);
-
+		} else 
+			response.sendRedirect("./login");
 	}
 
 }

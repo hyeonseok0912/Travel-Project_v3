@@ -12,16 +12,16 @@ import com.travel.dto.CommentDTO;
 
 public class BoardDAO extends AbstractDAO {
 
-	public List<BoardDTO> inboardList() {
+	public List<BoardDTO> inboardList(int page) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
-				+ " FROM boardview WHERE tboard_inout=0 ORDER BY tboard_date DESC";
+		String sql = "SELECT * FROM boardview WHERE tboard_inout=0 ORDER BY tboard_date DESC LIMIT ?, 10";
 
 		try {
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, (page - 1) * 10);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -45,16 +45,17 @@ public class BoardDAO extends AbstractDAO {
 		return list;
 	}
 
-	public List<BoardDTO> outboardList() {
+	public List<BoardDTO> outboardList(int page) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
-				+ " FROM tboard WHERE tboard_inout=1 ORDER BY tboard_date DESC";
+				+ " FROM boardview WHERE tboard_inout=1 ORDER BY tboard_date DESC LIMIT ?,10";
 
 		try {
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, (page - 1) * 10);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -86,7 +87,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, m.mid AS mid ,b.tboard_date, b.tboard_inout, b.tboard_del ,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count "
+		String sql = "SELECT b.tboard_no, b.tboard_title, b.tboard_content, m.mname AS tboard_write, m.mid AS mid ,b.tboard_date, b.tboard_inout, b.tboard_del ,(SELECT COUNT(*) FROM tvisit WHERE tboard_no=b.tboard_no) AS tboard_count, (SELECT COUNT(*) FROM tblike l WHERE l.tboard_no = b.tboard_no) AS tboard_like "
 				+ "FROM tboard b JOIN tmember m ON b.mno=m.mno " + "WHERE b.tboard_no=?";
 
 		try {
@@ -103,6 +104,7 @@ public class BoardDAO extends AbstractDAO {
 				dto.setDate(rs.getString("tboard_date"));
 				dto.setCount(rs.getInt("tboard_count"));
 				dto.setMid(rs.getString("mid"));
+				dto.setLike(rs.getInt("tboard_like"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -269,7 +271,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM tboard WHERE tboard_inout=0 ORDER BY tboard_like DESC LIMIT 10";
+		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM boardview WHERE tboard_inout=0 ORDER BY tboard_like DESC LIMIT 10";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -298,7 +300,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM tboard WHERE tboard_inout=1 ORDER BY tboard_like DESC LIMIT 10";
+		String sql = "SELECT tboard_no, tboard_title, tboard_inout, tboard_header FROM boardview WHERE tboard_inout=1 ORDER BY tboard_like DESC LIMIT 10";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -360,6 +362,27 @@ public class BoardDAO extends AbstractDAO {
 			e.printStackTrace();
 		}finally {
 			close(null, pstmt, con);
+		}
+		return result;
+	}
+
+	public int intotalCount() { // 국내게시판 총 게시물 수[민우]
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM boardview WHERE tboard_inout=0";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
 		}
 		return result;
 	}
