@@ -17,7 +17,7 @@
 	</header>
       <h1>해외 여행 게시판</h1>
 	<article>
-		<button onclick="writebtn()" >글쓰기</button>
+		<button name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
 		<div>
 			<a href="./outboard?write=1"> | 전체 |</a>
 			<a href="./outboard?write=1&category=공지사항">공지사항 |</a>			
@@ -96,21 +96,10 @@
 			</table>
 		</div>
 		<div>
-			<button onclick="writebtn()">글쓰기</button>
+			<button name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
 			
 		</div>
 	</article>
-	<script type="text/javascript">
-		function writebtn(){
-			var sn = '<%=(String)session.getAttribute("mid")%>';
-			if(sn == "null"){
-				alert("로그인하세요");
-				location.href="./login";
-			} else{
-				location.href="./write?write=1";
-			}
-			
-			}
-	</script>
+
 </body>
 </html>
