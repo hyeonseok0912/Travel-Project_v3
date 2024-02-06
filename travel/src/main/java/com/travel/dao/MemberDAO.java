@@ -151,14 +151,17 @@ public class MemberDAO extends AbstractDAO {
 		int result = 0;
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO tmember (mid, mname, mpw) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO tmember (mid, mname, mpw, mhint, manswer) VALUES(?, ?, ?, ?, ?)";
 
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getMid());
 			pstmt.setString(2, dto.getMname());
 			pstmt.setString(3, dto.getMpw());
+			pstmt.setString(4, dto.getMhint());
+			pstmt.setString(5, dto.getManswer());
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -199,16 +202,18 @@ public class MemberDAO extends AbstractDAO {
 		return list;
 	}
 
+	//ID 찾기
 	public String idFind(MemberDTO dto) {
 		String result = null;
 	    Connection con = db.getConnection();
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
-	    String sql = "SELECT mid FROM tmember WHERE mname = ?";
+	    String sql = "SELECT mid FROM tmember WHERE mname = ? AND manswer = ?";
 	    
 	    try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getMname());
+			pstmt.setString(2, dto.getMhint());
 			
 			rs = pstmt.executeQuery();
 			
@@ -223,7 +228,8 @@ public class MemberDAO extends AbstractDAO {
 	    		 
 		return result;
 	}
-
+	
+	//PW 찾기
 	public String pwFind(MemberDTO dto) {
 		String result = null;
 	    Connection con = db.getConnection();
@@ -248,6 +254,29 @@ public class MemberDAO extends AbstractDAO {
 		}
 
 	    return result;
+	}
+
+	public String hintFind(MemberDTO dto) {
+		String result = null;
+	    Connection con = db.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT mhint FROM tmember WHERE mname = ?";
+	    
+	    try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMname());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("mhint");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+		return result;
 	}
 
 }

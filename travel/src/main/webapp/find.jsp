@@ -10,19 +10,47 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
-	function idFind(){
-		let name = $('#nameForId').val();
-		
+
+	function idHintFind(){
+		let name = $('#nameForHint').val();
+	
 		$.ajax({
-			url : './idFind',
+			url : './hintFind',
 			type : 'post',
 			dataType : 'text',
 			data : {name : name},
 			success : function(result){
 				if(result != null && result != ""){
+					//hint가 있을때
+					alert("힌트가 있습니다.");
+					alert(result);
+				} else{
+					//id가 없을때
+					alert("해당 정보를 찾을 수 없습니다.");
+			}
+			},
+			error : function(request, status, error){
+				alert("문제가 발생했습니다.");
+			}
+		});
+	}
+	
+	function idFind(){
+		let hint = $('#hintForId').val();
+		let name = $('#nameForHint').val();
+		
+		$.ajax({
+			url : './idFind',
+			type : 'post',
+			dataType : 'text',
+			data : {name : name, hint : hint},
+			success : function(result){
+				if(result != null && result != ""){
 					//id가 있을때
-					alert("ID가 있습니다.");
+					alert("힌트 테스트 통과!");
+					alert("ID를 알려드리겠습니다.");
 					alert("ID는 : " + result);
+					
 				} else{
 					//id가 없을때
 					alert("해당 정보를 찾을 수 없습니다.");
@@ -58,6 +86,8 @@
 			}
 		});
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -73,7 +103,10 @@
 				<div>
 					<div>
 						<label class="input-group-text">이&ensp;름</label>
-						<input type="text" id="nameForId" name="name" class="form-control" placeholder="이름을 입력하세요">
+						<input type="text" id="nameForHint" name="name" class="form-control" placeholder="이름을 입력하세요">
+						<button class="btn btn-danger input-group-text" onclick="return idHintFind()">힌트찾기</button>
+						<label class="input-group-text">힌&ensp;트</label>
+						<input type="text" id="hintForId" name="hint" class="form-control" placeholder="힌트에 대한 답을 입력하세요">
 						<button class="btn btn-danger input-group-text" onclick="return idFind()">ID찾기</button>
 					</div>
 				</div>
@@ -89,6 +122,9 @@
 						<label class="input-group-text">I&ensp;D</label>
 						<input type="text" id="idForPw" name="id" class="form-control" placeholder="아이디를 입력하세요">
 						<button class="btn btn-danger input-group-text" onclick="return pwFind()">PW찾기</button>
+					</div>
+					<div>
+						
 					</div>
 				</div>
 			</div>
