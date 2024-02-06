@@ -21,6 +21,7 @@ public class BoardDAO extends AbstractDAO {
 
 		try {
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, (page - 1) * 10);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
