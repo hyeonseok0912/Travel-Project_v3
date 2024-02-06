@@ -172,7 +172,11 @@
             <div class="detailCONTENT">
                 ${detail.content}
             </div>
+            <c:choose>
+            <c:when test="${sessionScope.mname ne null }">
             <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">
+            </c:when>
+            </c:choose>
             <button onclick="selectBoard()" value="${param.inout}">목록</button>
         </div>
 
