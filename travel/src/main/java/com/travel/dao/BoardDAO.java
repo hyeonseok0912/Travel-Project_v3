@@ -51,7 +51,7 @@ public class BoardDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
-				+ " FROM tboard WHERE tboard_inout=1 ORDER BY tboard_date DESC";
+				+ " FROM boardview WHERE tboard_inout=1 ORDER BY tboard_date DESC";
 
 		try {
 			pstmt = con.prepareStatement(sql);
