@@ -61,7 +61,7 @@
 
 	<div class="row">
 		<div class="col-sm-6 mb-3 mb-sm-0">
-			<div class="card border-info" style="width: 50rem;">
+			<div class="card border-info" style="width: 50rem; float: left; margin-left: 100px;">
 				<img
 					src="https://media.istockphoto.com/id/1137568153/photo/cherry-blossoms-in-spring-seoul-in-korea.webp?b=1&s=170667a&w=0&k=20&c=s7H268zRcXDlpy-tdWUGySCyLZPGGkc2NTZQmWI43_0="
 					class="card-img-top" alt="">
@@ -84,7 +84,7 @@
 		</div>
 		<div class="col-sm-6">
 
-			<div class="card border-warning" style="width: 50rem;">
+			<div class="card border-warning" style="width: 50rem; float: right; margin-right: 100px;">
 				<img
 					src="https://mrwallpaper.com/images/hd/eiffel-tower-landmark-of-europe-me09dw2gm1ecarrx.jpg"
 					class="card-img-top" alt="해외사진">
@@ -103,8 +103,9 @@
 					</p>
 					<a href="./outboard" class="btn btn-warning">more+</a>
 				</div>
-			</div>
+		 	</div>
 
-		</div>
+	    </div>
+	</div>
 </body>
 </html>

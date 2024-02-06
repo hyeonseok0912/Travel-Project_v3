@@ -1,7 +1,7 @@
 package com.travel.dto;
 
 public class BoardDTO {
-	private int no, inout, del, count, like;
+	private int no, inout, del, count, like, comment;
 	private String title, content, write, date, mid, mname, header;
 	
 	
@@ -77,5 +77,11 @@ public class BoardDTO {
 	}
 	public void setMname(String mname) {
 		this.mname = mname;
+	}
+	public int getComment() {
+		return comment;
+	}
+	public void setComment(int comment) {
+		this.comment = comment;
 	}
 }

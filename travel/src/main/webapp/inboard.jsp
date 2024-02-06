@@ -19,26 +19,24 @@
 	<%@ include file="menu.jsp" %>
 	</header>
    <article>
-      <div class="title">
-      <h1>국내 여행 게시판</h1>
-         <button name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
-        <div>
-			<a href="./inboard?write=0"> | 전체 |</a>
-			<a href="./inboard?write=0&category=공지사항">공지사항 |</a>			
-			<a href="./inboard?write=0&category=여행정보">여행정보 |</a>
-			<a href="./inboard?write=0&category=잡담">잡담 |</a>
-		</div>
+	   <h1>국내 여행 게시판</h1>
+      <div class="btn-group" role="group" aria-label="Basic outlined example">
+		<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0')">전체</button>
+		<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=공지사항')">공지사항</button>
+		<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=여행정보')">여행정보</button>
+		<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=잡담')">잡담</button>
+		</div><br>
          <div>
             <div>
-               <table>
+               <table class="table table-hover">
                   <thead>
-    	    		<tr>
-        	        	<th class="t1">번호</th>
-						<th class="t3">제목</th>
-						<th class="t2">글쓴이</th>
-						<th class="t2">등록일</th>
-						<th class="t1">조회</th>
-						<th class="t1">추천</th>
+    	    		<tr class="table-info">
+        	        	<th scope="col">번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">글쓴이</th>
+						<th scope="col">등록일</th>
+						<th scope="col">조회</th>
+						<th scope="col">추천</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,7 +59,7 @@
             		<tr>
         	   			<c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '여행정보'}">
 						<td>${row.no}</td>
-						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
+						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title} ${row.comment }</a></td>                    
 						<td>${row.write}</td>
 						<td>${row.date}</td>
 						<td>${row.count}</td>
@@ -87,7 +85,7 @@
             		<tr>
         	   			<c:if test="${row.inout eq 0 && row.del ne 0}">
 						<td>${row.no}</td>
-						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>                    
+						<td><a href="./detail?no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title} <c:if test="${row.comment gt 0}"><span style="font-size: small;">[${row.comment }]</span></c:if></a></td>                    
 						<td>${row.write}</td>
 						<td>${row.date}</td>
 						<td>${row.count}</td>
@@ -99,12 +97,12 @@
 					</c:choose>
 				</tbody>
                </table>
-                    전체 글 수 : ${totalCount }개 글이 있습니다 /<c:set var="totalPage" value="${totalCount/10 }"/>
+                    <c:set var="totalPage" value="${totalCount/10 }"/>
 					<fmt:parseNumber integerOnly="true" value="${totalPage }" var="totalPage"/>
 					<c:if test="${totalCount % 10 gt 0}">
 						<c:set var="totalPage" value="${totalPage +1 }"/>
 					</c:if>
-					전체 페이지 수:<c:out value="${totalPage }"/>
+					
 					<c:set var ="startPage" value="1"/>
 					<c:if test="${page gt 5}">
 						<c:set var="startPage" value="${page-5 }"/>
@@ -114,20 +112,23 @@
 						<c:set var="startPage" value="${totalPage - 9 }"/>
 						<c:set var="endPage" value="${totalPage }"/>
 					</c:if>
-							<nav aria-label="Page navigation example">
-  								<ul class="pagination">
-									<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
-   									<c:forEach begin="${startPage }" end="${endPage }" var="p">
-   									<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li>
-									</c:forEach>
-									<li class="page-item"><button class="page-link" onclick="paging(${page+10})" <c:if test="${page + 10 gt totalPage }">disabled="disabled"</c:if>>다음</button></li>
- 								 </ul>
-							</nav>
+							
+										<button type="button" class="btn btn-outline-primary" name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
+										
+								<nav aria-label="Page navigation example">
+  									<ul class="pagination" style="justify-content: center">
+										<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
+   										<c:forEach begin="${startPage }" end="${endPage }" var="p">
+   										<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li>
+										</c:forEach>
+										<li class="page-item"><button class="page-link" onclick="paging(${page+10})" <c:if test="${page + 10 gt totalPage }">disabled="disabled"</c:if>>다음</button></li>
+ 								 	</ul>
+								</nav>
+								
 						</div>
             		</div>
          		</div>
       		<div>
-			<button name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
 	 		</div>
 <script type="text/javascript">
 	function paging(no){

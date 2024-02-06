@@ -80,7 +80,7 @@ public class CommentDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) FROM tclike WHERE cno=? AND mno=(SELECT mno FROM tmember WHERE mid=?)";
+		String sql = "SELECT COUNT(*) FROM tclike WHERE cno=? AND mno=(SELECT mno FROM tmember WHERE mid=?) AND clike='1'";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -108,13 +108,13 @@ public class CommentDAO extends AbstractDAO {
 		int result = 0;
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO tclike (cno, mno) VALUES(?, (SELECT mno FROM tmember WHERE mid=?))";
+		String sql = "INSERT INTO tclike (cno, mno, clike) VALUES(?, (SELECT mno FROM tmember WHERE mid=?), '1')";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getCno());
 			pstmt.setString(2, dto.getMid());
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();	
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
