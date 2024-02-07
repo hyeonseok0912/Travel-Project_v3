@@ -201,10 +201,7 @@
 					</div>
 				</article>
 			</div>
-			<div class="input-group mb-2">
-    			<button id="idBtn" type="button" class="btn btn-light" onclick="findId()">ID찾기</button>
-    			<button id="pwBtn" type="button" class="btn btn-secondary" onclick="findPw()">PW찾기</button>
-			</div>
+			
 		</div>
 	</div>
 </body>

@@ -31,12 +31,12 @@
 						<img alt="login" src="./img/login.png">
 							<input type="text" name="id" placeholder="아이디 입력란">
 							<input type="password" name="pw" placeholder="비밀번호 입력란">
-							<button type="reset">지우기</button>
 							<button type="submit">로그인</button>
 							<div id="errorMSG"></div>
 						</form>
-						
 						<a href="./join">회원가입</a>
+						<a href="./idFind">ID 찾기</a>
+						<a href="./idFind">PW 찾기</a>
 					</div>
 				</article>
 			</div>
