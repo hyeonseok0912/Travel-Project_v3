@@ -251,10 +251,10 @@
 
 
 	<!-- 댓글보여주기  -->
-	<div class="ccomments">
+<%-- 	<div class="ccomments">
 		<c:forEach items="${commentList}" var="co">
 			<div class="comment">
-				<div class="chead">
+				 <div class="chead">
 					<div class="cname">${co.mname }
 						<c:if
 							test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
@@ -290,11 +290,50 @@
 				${co.ccomment}
 			</div>
 		</c:forEach>
-	</div>
+	</div> --%>
 
+    <c:forEach items="${commentList}" var="co">
+      <div class="comment" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
+		<ul class="list-group list-group-flush border-bottom">
+      		<li class="list-group-item">
+        		<div class="d-flex w-100 justify-content-between">
+          		<h6 class="mb-1 fw-bold">${co.mname }</h6>
 
+					<div class='clike'>
+						<button type="button" class="btn btn-outline-danger btn-sm">
+							<c:choose>
+								<c:when test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
+             					<img class="commentLike1" onclick="myComment()" alt="like" src="./img/like1.png">
+             					<span style="font-size: small;">${co.clike }</span>
+           						</c:when>
+	            				<c:when test="${sessionScope.mname ne null && co.mid ne sessionScope.mid }">
+              					<input type="hidden" class="cno" value="${co.cno }">
+              					<img class="commentLike2" alt="like" src="./img/like1.png">
+              					<span style="font-size: small;">${co.clike }</span>
+              					<input type="hidden" class="clike" value="${co.clike }">
+            					</c:when>
+            					<c:otherwise>
+              					<img class="commentLike3" onclick="needLogin()" alt="like" src="./img/like1.png">
+              					<span style="font-size: small;">${co.clike }</span>
+            					</c:otherwise>
+          					</c:choose>
+          				</button>
+         	 		</div>
 
-	</article>
+        		</div>
+        	<p class="mb-1">${co.ccomment}</p>
+        	<small class="text-body-secondary">${co.cdate }</small>
+
+       	 	<c:if test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
+        		<input type="hidden" class="cno" value="${co.cno }">
+        		<img class="commentDelete" alt="delete" src="./img/comment_del.png">
+     		</c:if>
+
+      		</li>
+    	</ul>
+  	</div>
+  </c:forEach>
+
 
 </body>
 </html>
