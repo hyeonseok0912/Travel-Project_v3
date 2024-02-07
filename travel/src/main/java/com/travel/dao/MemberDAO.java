@@ -121,7 +121,7 @@ public class MemberDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT t.tboard_no, t.tboard_title, t.tboard_date, t.tboard_count, t.tboard_like FROM tboard t JOIN tmember m ON t.mno = m.mno WHERE m.mid=?";
+		String sql = "SELECT t.tboard_no, t.tboard_title, t.tboard_date, t.tboard_count, t.tboard_like,t.tboard_header FROM tboard t JOIN tmember m ON t.mno = m.mno WHERE m.mid=?";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -135,6 +135,7 @@ public class MemberDAO extends AbstractDAO {
 				e.setDate(rs.getString("tboard_date"));
 				e.setCount(rs.getInt("tboard_count"));
 				e.setLike(rs.getInt("tboard_like"));
+				e.setHeader(rs.getString("tboard_header"));
 				list.add(e);
 			}
 
