@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <script type="text/javascript" src="./js/menu.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
 <style type="text/css">
 .id-alert, .name-alert, .pw-alert{
 	background-color: gray;
@@ -16,8 +19,36 @@
 .alert{
 	color: red;
 }
+.join-box {
+  margin:150px auto;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  padding:40px 30px;
+  border:5px solid #0e0e0e;
+  width:800px;
+  filter: drop-shadow(0px 0px 10px rgba(0,0,0,.5));
+}
+#loginBoxTitle {
+	color:#000000;
+	font-weight: bold;
+	font-size: 1.9rem;
+	padding: 5px;
+	margin-bottom: 20px;
+	background: linear-gradient(to right, #270a09, #8ca6ce);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.input-group-text{
+	font-weight: bold;
+}
 </style>
 <script type="text/javascript">
+
+$(function(){
+	let images = ['join.jpg']
+	$('body').css({'background-image' : 'url(./img/' + images + ')', "background-size": "cover"});
+	});
+
 
 	$(document).ready(function() {
    		$('form').submit(function(e) {
@@ -147,7 +178,7 @@
 
 </head>
 <body>
-	<div class="container1">
+	<div>
 		<header>
 			<%@ include file="menu.jsp"%>
 		</header>
@@ -155,10 +186,11 @@
 			<div class="mainStyle">
 				<article>
 					<div class="join-form">
-						<h1>회원가입</h1>
-						<div>
-							<form action="./join" method="post" onsubmit="return check()">
-								<div class="input-group mb-2">
+						
+						<div class="join-box" style="justify-content: center;">
+						<div id="loginBoxTitle" style="margin: 0 auto; width: 700px">JOIN</div>
+							<form action="./join" method="post" onsubmit="return check()" style="width: 100px auto;">
+								<div class="input-group mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<label class="input-group-text">아이디</label>
 									<input type="text" id="id" name="id" class="form-control" placeholder="ID를 입력해주세요">
 									<button class="btn btn-danger input-group-text"
@@ -167,7 +199,7 @@
 								<div class="input-group mb-2 id-alert">
 									<p class="alert">올바른 아이디를 입력해주세요</p>
 								</div>
-								<div class="input-group mb-2">
+								<div class="input-group mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<label class="input-group-text">이&ensp;&ensp;름</label>
 									<input type="text" id="name" name="name"
 										class="form-control" placeholder="이름을 입력해주세요">
@@ -175,7 +207,7 @@
 								<div class="input-group mb-2 name-alert">
 									<p class="alert">올바른 이름을 입력해주세요</p>
 								</div>
-								<div class="input-group mb-2">
+								<div class="input-group mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<label class="input-group-text">Password</label>
 									<input type="password" id="pw1" name="pw1" class="form-control" placeholder="PW를 입력해주세요">
 									<label class="input-group-text">Password 확인</label>
@@ -184,15 +216,15 @@
 								<div class="input-group mb-2 pw-alert">
 									<p class="alert">올바른 Password를 입력하세요</p>
 								</div>
-								<div class="input-groub mb-2">
+								<div class="input-groub mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<label class="input-group-text">힌트 질문</label>
 									<input type="text" id="mhint" name="mhint" class="form-control" placeholder="힌트로 쓰일 질문을 입력해주세요">
 								</div>
-								<div class="input-groub mb-2">
+								<div class="input-groub mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<label class="input-group-text">힌트 답변</label>
 									<input type="text" id="manswer" name="manswer" class="form-control" placeholder="힌트에 대한 답변을 입력해주세요">
 								</div>
-								<div class="input-group mb-2">
+								<div class="input-group mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<button type="reset" class="btn btn-danger">초기화</button>
 									<button id="joinBtn" type="submit" disabled="disabled" class="btn btn-primary">가입하기</button>
 								</div>

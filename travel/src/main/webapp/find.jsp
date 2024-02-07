@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>계정 찾기</title>
 <script type="text/javascript" src="./js/menu.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
 <style type="text/css">
 .id-alert, .name-alert, .pw-alert {
@@ -16,6 +17,32 @@
 
 .alert {
 	color: red;
+}
+.join-box {
+  margin:150px auto;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  padding:40px 30px;
+  border:5px solid #0e0e0e;
+  width:800px;
+  filter: drop-shadow(0px 0px 10px rgba(0,0,0,.5));
+}
+.loginBoxTitle {
+  color:#000000;
+  font-weight: bold;
+  font-size: 1.9rem;
+  padding: 5px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #270a09, #8ca6ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body {
+  background-image: url('./img/id.jpg');
+  background-size: cover;
+}
+.input-group-text{
+	font-weight: bold;
 }
 </style>
 <script type="text/javascript">
@@ -234,42 +261,45 @@
 	<div class="main">
 		<article>
 			<div class="idSearch-form">
-				<h1>ID 찾기</h1>
-				<div>
-					<div>
+				
+				<div class="join-box" style="justify-content: center;">
+					<div class="loginBoxTitle" style="margin: 0 auto; width: 700px">ID FIND</div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">이&ensp;름</label>
 						<input type="text" id="nameForHint" name="name" class="form-control" placeholder="이름을 입력하세요">
 					</div>
-					<div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<button class="btn btn-primary input-group-text" onclick="return idHintFind()">힌트 찾기</button>
 						<label class="input-group-text">힌&ensp;트</label> <input type="text" id="hintForId" name="idHint" class="form-control" placeholder="힌트에 대한 답을 입력하세요">
 					</div>
-					<div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">힌트 답 확인</label>
 						<button class="btn btn-primary input-group-text" onclick="return idHintCheck()">정답 체크</button>
 					</div>
-					<div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<button id="idBtn" disabled="disabled" class="btn btn-danger input-group-text" onclick="return idFind()">ID 찾기</button>
 					</div>
 				</div>
 			</div>
+			
 			<div class="PwSearch-form">
-				<h1>PW 찾기</h1>
-				<div>
-					<div>
+				
+				<div class="join-box" style="justify-content: center; margin-top: -100px;">
+					<div class="loginBoxTitle" style="margin: 0 auto; width: 700px">PW FIND</div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">이&ensp;름</label>
 						<input type="text" id="nameForPw" name="name" class="form-control" placeholder="이름을 입력하세요">
 					</div>
-					<div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">I&ensp;D</label>
 						<input type="text" id="idForPw" name="id" class="form-control" placeholder="아이디를 입력하세요">
 						<button class="btn btn-primary input-group-text" onclick="return pwHintFind()">힌트 찾기</button>
 					</div>
-					<div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">힌&ensp;트</label>
 						<input type="text" id="hintForPW" name="pwHint" class="form-control" placeholder="힌트에 대한 답을 입력하세요">
 					</div>
-					<div>
+					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">힌트 답 확인</label>
 						<button class="btn btn-primary input-group-text" onclick="return pwHintCheck()">정답 체크</button>
 						<label class="input-group-text">새로운 비밀번호 입력</label>
