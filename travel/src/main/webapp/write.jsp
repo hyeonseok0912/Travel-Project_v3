@@ -17,6 +17,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<style type="text/css">
+#title{
+	width:179rem;
+}
+</style>
 <script type="text/javascript">
 function check(){// 글자 수 검사[민우]
 	var title = document.getElementById("title");
@@ -54,8 +59,8 @@ function check(){// 글자 수 검사[민우]
 						</select>
 						<input type="text" name="title" id="title">
 						<textarea id="summernote" name="content" class="content"></textarea>
-						<button type="submit" onclick="return check()">저장</button>
-
+						<button type="submit" onclick="return check()" class="btn btn-primary btn-lg">저장</button>
+						
  					</form>
 				</div>
 		</article>
