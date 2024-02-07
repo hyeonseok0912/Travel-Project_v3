@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -9,12 +8,9 @@
 
 <!-- bootstrap 반응형 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- bootstrap css -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-	crossorigin="anonymous">
+<script type="text/javascript" src="./js/menu.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <!-- j쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
@@ -165,42 +161,11 @@
 </head>
 <body>
 
-	<!-- bootstrap js -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-
 	<header><%@ include file="menu.jsp"%></header>
-
-	<%--  	<c:if test="${detail.mid eq sessionScope.mid}">
-		<button onclick="writeedit()">수정</button>
-		<button onclick="writedel()">삭제</button>
-	</c:if>
-    <article>
-        <!-- 글 내용 -->
-        <div class="detailDIV">
-            <div class="detailTITLE">
-                ${detail.title}
-            </div>
-            <div class="detailWRITECOUNT">
-                <div class="detailWRITE">
-                    ${detail.write}
-                </div>
-                <div class="detailCOUNT">
-                    ${detail.count}
-                </div>
-            </div>
-            <div class="detailCONTENT">
-                ${detail.content}
-            </div>
-            <c:choose>
-            <c:when test="${sessionScope.mname ne null }">
-            <img alt="이미지 없다" src="./img/board_recomment.png" onclick="tboard_recomment()" class="b_recommen">${detail.like }
-            </c:when>
-            </c:choose> --%>
-
-	<div class="card text-center border-dark" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
+	<div class="backtoboard" style="margin: 0 auto; padding: 0 auto; float: left">
+		<button type="button" class="btn btn-outline-primary" onclick="selectBoard()">목록</button>
+	</div>
+	<div class="card text-center border-dark" style="width: fit-content; margin: 0 auto; padding: 0 auto; justify-content: left; float: left">
 		<h5 class="card-header border-dark">${detail.title}</h5>
 		<div class="card-body">
 			<h6 class="card-subtitle mb-2 text-body-secondary">글쓴이:${detail.write}&nbsp;&nbsp;조회:${detail.count}&nbsp;&nbsp;추천:${detail.like }</h6>
@@ -209,88 +174,27 @@
 		<div class="card-footer border-dark">
 			<c:choose>
 				<c:when test="${sessionScope.mname ne null }">
-					<button type="button"
-						class="btn btn-outline-danger btn-sm b_recommen"
-						onclick="tboard_recomment()">
+					<button type="button" class="btn btn-outline-danger btn-sm b_recommen" onclick="tboard_recomment()">
 						<img src="./img/like.png" alt="추천" height="20">&nbsp;<span class="badge text-bg-secondary">${detail.like }</span>
 					</button>
 				</c:when>
 			</c:choose>
 			<c:if test="${detail.mid eq sessionScope.mid}">
-				<button type="button" class="btn btn-outline-success btn-sm"
-					onclick="writeedit()">edit</button>
-				<button type="button" class="btn btn-outline-secondary btn-sm"
-					onclick="writedel()">delete</button>
+				<button type="button" class="btn btn-outline-success btn-sm" onclick="writeedit()">글 수정</button>
+				<button type="button" class="btn btn-outline-secondary btn-sm" onclick="writedel()">글 삭제</button>
 			</c:if>
 		</div>
+	</div><br>
+	<div class="backtoboard" style="width: 75rem; margin: 0 auto; padding: 0 auto; float: left">
+		<button type="button" class="btn btn-outline-primary" onclick="selectBoard()">목록</button>
 	</div>
-
-	<%-- <button onclick="selectBoard()" value="${param.inout}">목록</button> --%>
-	<div class="backtoboard"
-		style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
-		<button type="button" class="btn btn-outline-primary"
-			onclick="selectBoard()">목록</button>
-	</div>
-
- 	<!-- 댓글쓰기 -->
-<!-- 	<div class="comment-write">
-		<div class="comment-form">
-			<textarea id="commentcontent" name="commentcontent"></textarea>
-			<button id="comment-btn">댓글쓰기</button>
-		</div>
-	</div> -->
-
-
 	<div class="comment-write card" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
 		<h5 class="card-header">댓글 남기기</h5>
 			<div class="comment-form card-body">
-				<textarea class="form-control mb-3" rows="3" id="commentcontent" name="commentcontent"></textarea>
+				<textarea class="form-control mb-3" rows="3" id="commentcontent" name="commentcontent" ></textarea>
 				<button id="comment-btn" type="button" class="btn btn-outline-success">등록</button>
 			</div>
 	</div>
-
-
-	<!-- 댓글보여주기  -->
-<%-- 	<div class="ccomments">
-		<c:forEach items="${commentList}" var="co">
-			<div class="comment">
-				 <div class="chead">
-					<div class="cname">${co.mname }
-						<c:if
-							test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
-							<input type="hidden" class="cno" value="${co.cno }">
-							<img class="commentDelete" alt="delete"
-								src="./img/comment_del.png">
-						</c:if>
-						<div class="cdate">${co.cdate }</div>
-						<div class='clike'>
-							<c:choose>
-								<c:when
-									test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
-									<img class="commentLike1" onclick="myComment()" alt="like"
-										src="./img/like1.png">
-									<span style="font-size: small;">${co.clike }</span>
-								</c:when>
-								<c:when
-									test="${sessionScope.mname ne null && co.mid ne sessionScope.mid }">
-									<input type="hidden" class="cno" value="${co.cno }">
-									<img class="commentLike2" alt="like" src="./img/like1.png">
-									<span style="font-size: small;">${co.clike }</span>
-									<input type="hidden" class="clike" value="${co.clike }">
-								</c:when>
-								<c:otherwise>
-									<img class="commentLike3" onclick="needLogin()" alt="like"
-										src="./img/like1.png">
-									<span style="font-size: small;">${co.clike }</span>
-								</c:otherwise>
-							</c:choose>
-						</div>
-					</div>
-				</div>
-				${co.ccomment}
-			</div>
-		</c:forEach>
-	</div> --%>
 
     <c:forEach items="${commentList}" var="co">
       <div class="comment" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
@@ -328,7 +232,6 @@
         		<input type="hidden" class="cno" value="${co.cno }">
         		<img class="commentDelete" alt="delete" src="./img/comment_del.png">
      		</c:if>
-
       		</li>
     	</ul>
   	</div>

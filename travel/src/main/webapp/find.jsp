@@ -264,20 +264,17 @@ body {
 				
 				<div class="join-box" style="justify-content: center;">
 					<div class="loginBoxTitle" style="margin: 0 auto; width: 700px">ID FIND</div>
-					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
+					<div class="input-group mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<label class="input-group-text">이&ensp;름</label>
 						<input type="text" id="nameForHint" name="name" class="form-control" placeholder="이름을 입력하세요">
 					</div>
-					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
+					<div class="input-groub mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 						<button class="btn btn-primary input-group-text" onclick="return idHintFind()">힌트 찾기</button>
 						<label class="input-group-text">힌&ensp;트</label> <input type="text" id="hintForId" name="idHint" class="form-control" placeholder="힌트에 대한 답을 입력하세요">
 					</div>
-					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
-						<label class="input-group-text">힌트 답 확인</label>
-						<button class="btn btn-primary input-group-text" onclick="return idHintCheck()">정답 체크</button>
-					</div>
-					<div style="width: 700px; margin: 0 auto; padding: 0 auto;">
-						<button id="idBtn" disabled="disabled" class="btn btn-danger input-group-text" onclick="return idFind()">ID 찾기</button>
+					<div class="input-groub mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
+						<button class="btn btn-primary" onclick="return idHintCheck()">정답 체크</button>
+						<button id="idBtn" disabled="disabled" class="btn btn-danger" onclick="return idFind()">ID 찾기</button>
 					</div>
 				</div>
 			</div>
