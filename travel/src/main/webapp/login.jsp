@@ -18,8 +18,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-<script>
-    $(document).ready(function(){
+<script type="text/javascript">
+$(function(){
+let images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg'];
+$('body').css({'background-image' : 'url(./img/' + images[Math.floor(Math.random() * images.length)] + ')', "background-size": "cover"});
+});
+   
+      $(document).ready(function(){
         // 로그인 실패 시
         var errorMSG = '${errorMSG}';
         if(errorMSG && errorMSG.trim() !== ''){
@@ -29,10 +34,10 @@
 </script>
 <style type="text/css">
 /*body {
-  background-image: url('./loginbg.png');
+  background-image: url('./img/15.jpg');
   background-size: 100%;
-  font-size: 0.75rem;
-}*/
+  font-size: 0.75rem;*/
+}
 #loginBoxTitle {
   color:#000000;
   font-weight: bold;
@@ -101,10 +106,10 @@ input[type="reset"] {
 							</div>
 							<div id="errorMSG"></div>
 							
-								<div style="font-size: small;">
+								<div style="font-size: small; text-align: center">
 									<br><a href="./join">회원가입</a>
-									<a href="./idFind">ID 찾기</a>
-									<a href="./idFind">PW 찾기</a>
+									&nbsp;&nbsp;<a href="./idFind">ID 찾기</a>
+									&nbsp;&nbsp;<a href="./idFind">PW 찾기</a>
 								</div>
 							
 							</form>
