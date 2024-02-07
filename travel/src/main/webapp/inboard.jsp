@@ -109,27 +109,21 @@
 					</c:if>
 					<c:set var = "endPage" value="${startPage +9 }"/>
 					<c:if test="${endPage gt totalPage }">
-						<c:set var="startPage" value="${totalPage - 9 }"/>
 						<c:set var="endPage" value="${totalPage }"/>
 					</c:if>
-							
-										<button type="button" class="btn btn-outline-primary" name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
-										
-								<nav aria-label="Page navigation example">
-  									<ul class="pagination" style="justify-content: center">
-										<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
-   										<c:forEach begin="${startPage }" end="${endPage }" var="p">
-   										<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li>
-										</c:forEach>
-										<li class="page-item"><button class="page-link" onclick="paging(${page+10})" <c:if test="${page + 10 gt totalPage }">disabled="disabled"</c:if>>다음</button></li>
- 								 	</ul>
-								</nav>
-								
-						</div>
-            		</div>
-         		</div>
-      		<div>
-	 		</div>
+					<button type="button" class="btn btn-outline-primary" name="writebtn" onclick="url('./write?write=0')">글쓰기</button>
+					<nav aria-label="Page navigation example">
+  						<ul class="pagination" style="justify-content: center">
+							<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
+   								<c:forEach begin="${startPage }" end="${endPage }" var="p">
+   								<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li>
+								</c:forEach>
+							<li class="page-item"><button class="page-link" onclick="paging(${page+10})" <c:if test="${page + 10 gt totalPage }">disabled="disabled"</c:if>>다음</button></li>
+ 						</ul>
+					</nav>
+				</div>
+            </div>
+
 <script type="text/javascript">
 	function paging(no){
 		location.href="inboard?page="+no;
