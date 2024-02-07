@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="./index">
       <img src="./img/travel.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
       &nbsp;Triippp
     </a>
