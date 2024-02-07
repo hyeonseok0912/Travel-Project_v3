@@ -225,21 +225,31 @@
 		</div>
 	</div>
 
-
-
-	<button onclick="selectBoard()" value="${param.inout}">목록</button>
+	<%-- <button onclick="selectBoard()" value="${param.inout}">목록</button> --%>
+	<div class="backtoboard"
+		style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
+		<button type="button" class="btn btn-outline-primary"
+			onclick="selectBoard()">목록</button>
 	</div>
 
-	<!-- 댓글쓰기 -->
-	<div class="comment-write">
+ 	<!-- 댓글쓰기 -->
+<!-- 	<div class="comment-write">
 		<div class="comment-form">
 			<textarea id="commentcontent" name="commentcontent"></textarea>
 			<button id="comment-btn">댓글쓰기</button>
 		</div>
+	</div> -->
+
+
+	<div class="comment-write card" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
+		<h5 class="card-header">댓글 남기기</h5>
+			<div class="comment-form card-body">
+				<textarea class="form-control mb-3" rows="3" id="commentcontent" name="commentcontent"></textarea>
+				<button id="comment-btn" type="button" class="btn btn-outline-success">등록</button>
+			</div>
 	</div>
 
-	<br>
-	<br>
+
 	<!-- 댓글보여주기  -->
 	<div class="ccomments">
 		<c:forEach items="${commentList}" var="co">

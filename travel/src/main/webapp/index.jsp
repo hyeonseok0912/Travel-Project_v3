@@ -29,7 +29,7 @@
 	<header>
 		<%@ include file="menu.jsp"%>
 	</header>
-	<h1>index[홈]</h1>
+	
 
 	<%-- 	<article>
 		<div class=inHot>
