@@ -74,19 +74,38 @@
 			</tbody>
 		</table>		
 		<div>
+			<c:set var="totalPage" value="${totalCount/10 }"/>
+			<fmt:parseNumber integerOnly="true" value="${totalPage }" var="totalPage"/>
+			<c:if test="${totalCount % 10 gt 0}">
+			<c:set var="totalPage" value="${totalPage +1 }"/>
+			</c:if>
+					
+			<c:set var ="startPage" value="1"/>
+			<c:if test="${page gt 5}">
+			<c:set var="startPage" value="${page-5 }"/>
+			</c:if>
+			<c:set var = "endPage" value="${startPage +9 }"/>
+			<c:if test="${endPage gt totalPage }">
+			<c:set var="startPage" value="${totalPage - 9 }"/>
+			<c:set var="endPage" value="${totalPage }"/>
+			</c:if>
 			<button type="button" class="btn btn-outline-primary" name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
+			<nav aria-label="Page navigation example">
+  			<ul class="pagination" style="justify-content: center">
+			<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
+   			<c:forEach begin="${startPage }" end="${endPage }" var="p">
+   			<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li>
+			</c:forEach>
+			<li class="page-item"><button class="page-link" onclick="paging(${page+10})" <c:if test="${page + 10 gt totalPage }">disabled="disabled"</c:if>>다음</button></li>
+ 			</ul>
+			</nav>
 		</div>
-			<fmt:parseNumber integerOnly="true" value="${totalPage }" var="totalPage" /><c:if test="${totalCount % 10 gt 0 }"><c:set var="totalPage" value="${totalPage +1 }"/></c:if>
-			<c:set var="startPage" value="1"/><c:if test="${page gt 5}"><c:set var="startPage" value="${page - 5}"/></c:if><c:set var="endPage" value="${startPage+9}"/>
-			<c:if test="${endPage gt totalPage}"><c:set var="endPage" value="${totalPage}"/></c:if>
-			<div class="paging">
-				<button class="btn btn-outline-primary" onclick="paging(1)">이전페이지</button>
-				<button class="btn btn-outline-primary" <c:if test="${page -10 lt 1}">disabled="disabled"</c:if> onclick="paging(${page - 10})">◀</button>
-				<c:forEach begin="${startPage }" end="${endPage }" var="p"><button class="btn btn-outline-primary" <c:if test="${page eq p}">class="currentBtn"</c:if> onclick="paging(${p})">${p}</button></c:forEach>
-				<button class="btn btn-outline-primary" <c:if test="${page + 10 gt totalPage}">disabled="disabled"</c:if> onclick="paging(${page + 10})">▶</button>
-				<button class="btn btn-outline-primary" onclick="paging(${totalPage})">다음페이지</button>
-			</div>
 	</article>
+<script type="text/javascript">
+	function paging(no){
+		location.href="outboard?page="+no;
+}
+</script>
 </body>
 </html>
 

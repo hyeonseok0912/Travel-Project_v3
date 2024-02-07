@@ -387,4 +387,25 @@ public class BoardDAO extends AbstractDAO {
 		}
 		return result;
 	}
+
+	public int outtotalCount() {
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM boardview WHERE tboard_inout=1";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return result;
+	}
 }

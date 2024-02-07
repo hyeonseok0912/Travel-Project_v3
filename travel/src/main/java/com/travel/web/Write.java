@@ -39,10 +39,11 @@ public class Write extends HttpServlet {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		
 
 		dto.setMid((String) session.getAttribute("mid"));
 		title = Util.removeTag(title);
-		content = Util.removeTag(content);
+		content = Util.addBR(content);
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setMname((String) session.getAttribute("mname"));
