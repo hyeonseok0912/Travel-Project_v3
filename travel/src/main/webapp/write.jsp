@@ -23,8 +23,6 @@ function check(){// 글자 수 검사[민우]
 	let spaceremove = (title.value).replace(/\s/g,"");
 	var content = document.getElementsByClassName("content");
 	let spacec = (content[0].value).replace(/&nbsp;/g,"");
-	alert(spacec.length);
-	alert(spacec);
 	if (spaceremove.length < 2 ) {
 		alert("제목은 2글자 이상으로 적어주세요.");
 		title.focus();
@@ -51,8 +49,8 @@ function check(){// 글자 수 검사[민우]
 						</select>
 						<input type="text" name="title" id="title">
 						<textarea id="summernote" name="content" class="content"></textarea>
-						<!-- <button type="submit" onclick="return check()">저장</button>
-						 --><button type="button" onclick="return check()">저장</button>
+						<button type="submit" onclick="return check()">저장</button>
+
  					</form>
 				</div>
 		</article>
