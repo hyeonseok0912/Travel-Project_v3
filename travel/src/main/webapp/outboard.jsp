@@ -86,9 +86,9 @@
 			</c:if>
 			<c:set var = "endPage" value="${startPage +9 }"/>
 			<c:if test="${endPage gt totalPage }">
-			<c:set var="startPage" value="${totalPage - 9 }"/>
 			<c:set var="endPage" value="${totalPage }"/>
 			</c:if>
+  	
 			<button type="button" class="btn btn-outline-primary" name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
 			<nav aria-label="Page navigation example">
   			<ul class="pagination" style="justify-content: center">
