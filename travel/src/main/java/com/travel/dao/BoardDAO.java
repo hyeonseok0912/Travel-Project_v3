@@ -51,7 +51,7 @@ public class BoardDAO extends AbstractDAO {
 		Connection con = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header"
+		String sql = "SELECT tboard_no, tboard_title, tboard_write, tboard_count, tboard_date, tboard_like, tboard_inout, tboard_del, tboard_header, tcomment_count"
 				+ " FROM boardview WHERE tboard_inout=1 ORDER BY tboard_date DESC LIMIT ?,10";
 
 		try {
@@ -70,6 +70,7 @@ public class BoardDAO extends AbstractDAO {
 				e.setInout(rs.getInt("tboard_inout"));
 				e.setDel(rs.getInt("tboard_del"));
 				e.setHeader(rs.getString("tboard_header"));
+				e.setComment(rs.getInt("tcomment_count"));
 				list.add(e);
 			}
 

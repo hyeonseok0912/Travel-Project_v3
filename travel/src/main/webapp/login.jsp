@@ -39,7 +39,7 @@ $('body').css({'background-image' : 'url(./img/' + images[Math.floor(Math.random
 }*/
 
 #loginBoxTitle {
-  color:#000000;
+  color:rgb(255, 255, 255, 0.7);
   font-weight: bold;
   font-size: 1.9rem;
   padding: 5px;
@@ -47,6 +47,7 @@ $('body').css({'background-image' : 'url(./img/' + images[Math.floor(Math.random
   background: linear-gradient(to right, #270a09, #8ca6ce);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+ 
 }
 
 input[type="submit"] {
@@ -59,7 +60,7 @@ input[type="reset"] {
 }
 .login-box {
   margin:150px auto;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding:40px 30px;
   border:5px solid #0e0e0e;width:350px;
