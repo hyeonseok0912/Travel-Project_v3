@@ -13,6 +13,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<style type="text/css">
+.bg-success{
+	cursor: pointer;
+}
+.cursor{
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -38,10 +46,21 @@
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach items="${list}" var="row">
+				<tr>
+					<c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '공지사항'}">  				
+      				<th scope="row" class="bg-success p-2 bg-opacity-25">${row.no}</th>
+    				<td class="bg-success p-2 text-danger bg-opacity-25" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>
+      				<td class="bg-success p-2 bg-opacity-25">${row.write}</td>
+      				<td class="bg-success p-2 bg-opacity-25">${row.date}</td>
+      				<td class="bg-success p-2 bg-opacity-25">${row.count}</td>
+      				<td class="bg-success p-2 bg-opacity-25">${row.like}</td></c:if>
+				</tr>
+			</c:forEach>
 				<c:choose><c:when test="${param.category eq '공지사항'}"><c:forEach items="${list}" var="row">
    				<tr><c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '공지사항'}">
-      				<tr scope="row">${row.no}</tr>
-    				<td><a href="./detail?page=${page}&no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>
+      				<th scope="row">${row.no}</th>
+    				<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>
       				<td>${row.write}</td>
       				<td>${row.date}</td>
       				<td>${row.count}</td>
@@ -49,7 +68,7 @@
     			</tr></c:forEach></c:when><c:when test="${param.category eq '여행정보'}"><c:forEach items="${list}" var="row">
    				<tr><c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '여행정보'}">
       				<th scope="row">${row.no}</th>
-    				<td><a href="./detail?page=${page}&no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>  
+    				<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>  
       				<td>${row.write}</td>
       				<td>${row.date}</td>
       				<td>${row.count}</td>
@@ -57,15 +76,16 @@
     			</tr></c:forEach></c:when><c:when test="${param.category eq '잡담'}"><c:forEach items="${list}" var="row">
    				<tr><c:if test="${row.inout eq 1 && row.del ne 0 && row.header eq '잡담'}">
       				<th scope="row">${row.no}</th>
-    				<td><a href="./detail?page=${page}&no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>  
+    				<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>  
       				<td>${row.write}</td>
       				<td>${row.date}</td>
       				<td>${row.count}</td>
       				<td>${row.like}</td></c:if>
     			</tr></c:forEach></c:when><c:otherwise><c:forEach items="${list}" var="row">
-				<tr><c:if test="${row.inout eq 1 && row.del ne 0}">
+				<tr>
+					<c:if test="${row.inout eq 1 && row.del ne 0}">
 					<th scope="row">${row.no}</th>
-					<td><a href="./detail?page=${page}&no=${row.no}&inout=${row.inout}">[${row.header}] ${row.title}</a></td>  
+					<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>  
       				<td>${row.write}</td>
       				<td>${row.date}</td>
       				<td>${row.count}</td>
@@ -108,4 +128,3 @@
 </script>
 </body>
 </html>
-
