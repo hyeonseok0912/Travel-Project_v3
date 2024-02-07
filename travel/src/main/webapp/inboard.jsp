@@ -52,7 +52,7 @@
 					<tbody><c:forEach items="${list}" var="row">
 						<tr><c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '공지사항'}">  				
       						<th scope="row" class="bg-success p-2 bg-opacity-25">${row.no}</th>
-    						<td class="bg-success p-2 text-danger bg-opacity-25" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>
+    						<td class="bg-success p-2 text-danger bg-opacity-25" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>
      	 					<td class="bg-success p-2 bg-opacity-25">${row.write}</td>
      	 					<td class="bg-success p-2 bg-opacity-25">${row.date}</td>
       						<td class="bg-success p-2 bg-opacity-25">${row.count}</td>
@@ -60,7 +60,7 @@
 						</tr></c:forEach><c:choose><c:when test="${param.category eq '공지사항'}"><c:forEach items="${list}" var="row">
    						<tr><c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '공지사항'}">
     		  				<th scope="row">${row.no}</th>
-    						<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>
+    						<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>
     		  				<td>${row.write}</td>
     		  				<td>${row.date}</td>
     		  				<td>${row.count}</td>
@@ -68,7 +68,7 @@
     					</tr></c:forEach></c:when><c:when test="${param.category eq '여행정보'}"><c:forEach items="${list}" var="row">
    						<tr><c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '여행정보'}">
   		    				<th scope="row">${row.no}</th>
-							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>  
+							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>  
 							<td>${row.write}</td>
 							<td>${row.date}</td>
 							<td>${row.count}</td>
@@ -76,7 +76,7 @@
 						</tr></c:forEach></c:when><c:when test="${param.category eq '잡담'}"><c:forEach items="${list}" var="row">
 						<tr><c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '잡담'}">
 							<th scope="row">${row.no}</th>
-							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>  
+							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>  
 							<td>${row.write}</td>
 							<td>${row.date}</td>
 							<td>${row.count}</td>
@@ -84,7 +84,7 @@
 						</tr></c:forEach></c:when><c:otherwise><c:forEach items="${list}" var="row">
 						<tr><c:if test="${row.inout eq 0 && row.del ne 0}">
 							<th scope="row">${row.no}</th>
-							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title}</td>  
+							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>  
 							<td>${row.write}</td>
       						<td>${row.date}</td>
       						<td>${row.count}</td>
