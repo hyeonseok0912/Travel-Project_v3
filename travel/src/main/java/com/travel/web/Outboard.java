@@ -26,12 +26,15 @@ public class Outboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int page = 1;
+		if (request.getParameter("page")!=null && request.getParameter("page") != "") {
+			page = Util.str2Int(request.getParameter("page"));
+		}
 		
 		BoardDAO dao = new BoardDAO();
 		
 		List<BoardDTO> list = dao.outboardList(page);
 		
-		int totalCount = dao.totalCount();
+		int totalCount = dao.outtotalCount();
 		
 		request.setAttribute("list", list);
 		request.setAttribute("totalCount", totalCount);

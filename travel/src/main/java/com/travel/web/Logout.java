@@ -27,10 +27,10 @@ public class Logout extends HttpServlet {
 		if(session.getAttribute("mid") != null) {
 			session.removeAttribute("mid");
 		}
+		
 		session.invalidate();
 		
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
+		response.sendRedirect("/travel");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
