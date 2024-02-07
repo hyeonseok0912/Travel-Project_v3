@@ -21,7 +21,11 @@
 .cursor{
 	cursor: pointer;
 }
+.page-link{
+	color: orange; 
+}
 </style>
+
 </head>
 <body>
 	<header>
@@ -30,14 +34,14 @@
 	<h1>해외 여행 게시판</h1>
 	<article>	
 		<div class="btn-group" role="group" aria-label="Basic outlined example">
-			<button type="button" class="btn btn-outline-primary" onclick="url('./outboard?write=1')">전체</button>
-			<button type="button" class="btn btn-outline-primary" onclick="url('./outboard?write=1&category=공지사항')">공지사항</button>
-			<button type="button" class="btn btn-outline-primary" onclick="url('./outboard?write=1&category=여행정보')">여행정보</button>
-			<button type="button" class="btn btn-outline-primary" onclick="url('./outboard?write=1&category=잡담')">잡담</button>
+			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1')">전체</button>
+			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=공지사항')">공지사항</button>
+			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=여행정보')">여행정보</button>
+			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=잡담')">잡담</button>
 		</div><br><br>
 		<table class="table table-hover">
 			<thead>
-				<tr class="table-info">
+				<tr class="table-warning">
 					<th scope="col">번호</th>
 					<th scope="col">제목</th>
 					<th scope="col">글쓴이</th>
@@ -109,9 +113,9 @@
 				<c:set var="endPage" value="${totalPage }"/>
 			</c:if>
   	
-			<button type="button" class="btn btn-outline-primary" name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
+			<button type="button" class="btn btn-outline-warning" name="writebtn" onclick="url('./write?write=1')">글쓰기</button>
 			<nav aria-label="Page navigation example">
-  				<ul class="pagination" style="justify-content: center">
+  				<ul class="pagination justify-content-center">
 					<li class="page-item"><button class="page-link" onclick="paging(${page-10})" <c:if test="${page - 10 lt 1 }">disabled="disabled"</c:if> >이전</button></li>
    					<c:forEach begin="${startPage }" end="${endPage }" var="p">
    					<li class="page-item"><a class="page-link" onclick="paging(${p})">${p }</a></li></c:forEach>
