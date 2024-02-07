@@ -19,6 +19,28 @@
 </style>
 <script type="text/javascript">
 
+	$(document).ready(function() {
+   		$('form').submit(function(e) {
+        	e.preventDefault(); // 폼의 기본 동작을 막음
+        	$.ajax({
+            	url: $(this).attr('action'),
+            	type: 'POST',
+            	data: $(this).serialize(),
+            	success: function(result) {
+                	if (result == 1) {
+                    	alert('회원가입이 성공적으로 완료되었습니다.');
+                    	window.location.href = './login';
+                	} else {
+                    	alert('회원가입에 실패하였습니다.');
+                	}
+            	},
+            	error: function() {
+                	alert('서버와의 통신 중에 오류가 발생하였습니다.');
+            	}
+        	});
+    	});
+	});
+
 	let idCheckBool = false;
 
 	$(function() {
@@ -59,7 +81,7 @@
 		}
 
 		let name = $('#name').val();
-		if (name.length <= 2) {
+		if (name.length < 2) {
 			alert("이름은 2글자 이상이어야 합니다.");
 			$('.name-alert').show();
 			$('#name').focus();

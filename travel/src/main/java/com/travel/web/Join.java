@@ -1,6 +1,7 @@
 package com.travel.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,17 +40,9 @@ public class Join extends HttpServlet {
          
          MemberDAO dao = new MemberDAO();
          int result = dao.join(dto);
-         if(result == 1) {
-            
-            //로그인 페이지로
-            response.sendRedirect("./login");
-         } else {
-            //에러 페이지로
-            response.sendRedirect("./error.jsp");
-         }
-      }
-      else {
-         response.sendRedirect("./error.jsp");
+         PrintWriter pw = response.getWriter();
+ 		 pw.print(result);
+ 		 pw.close();
       }
    }
 
