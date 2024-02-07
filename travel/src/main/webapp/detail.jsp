@@ -16,11 +16,7 @@
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 <!-- j쿼리 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-	integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
 	//게시글 삭제하기
 	function writedel() {
@@ -36,8 +32,8 @@
 		}
 	}
 	function selectBoard() {
-		var inout = '<%=request.getParameter("inout")%>
-	';
+		var inout = '<%=request.getParameter("inout")%>'
+	
 		if (inout == 0) {
 			location.href = "./inboard";
 		} else {
@@ -59,23 +55,18 @@
 		//게시글 추천하기[민우]
 		$(".b_recommen").click(function() {
 			if (confirm("추천하시겠습니까?")) {
-				let bno = $
-				{
-					detail.no
-				}
-				;
+				let bno = ${detail.no};
+				let inout = ${param.inout};
 
 				$.ajax({
 					url : './detail',
 					type : 'post',
 					dataType : 'text',
-					data : {
-						bno : bno
-					},
+					data : {bno : bno},
 					success : function(result) {
 						if (result == 1) {
 							alert("추천 되었습니다.");
-							location.href = "detail?no=" + bno;
+							location.href = "detail?no=" + bno + "&inout=" + inout;
 						} else {
 							alert("이미 추천했습니다.");
 						}
@@ -96,9 +87,7 @@
 					url : './commentDel',
 					type : 'post',
 					dataType : 'text',
-					data : {
-						no : cno
-					},
+					data : {no : cno},
 					success : function(result) {
 						if (result == 1) {
 							point.remove();
@@ -110,7 +99,6 @@
 					error : function(request, status, error) {
 						alert("문제가 발생했습니다.");
 					}
-
 				}); // end ajax
 			}
 		});
@@ -118,11 +106,8 @@
 		// 댓글 작성하기를 눌렀을 때 실행될 꺼
 		$("#comment-btn").click(function() {
 			let commentcontent = $("#commentcontent").val();
-			let bno = $
-			{
-				detail.no
-			}
-			;
+			let bno = ${detail.no};
+			let inout = ${param.inout};
 			if (commentcontent.length < 1) {
 				alert("내용을 입력해주세요.");
 				$("#commentcontent").focus();
@@ -138,7 +123,7 @@
 					success : function(result) {
 						if (result == 1) {
 							alert("댓글이 등록되었습니다.");
-							location.href = "./detail?no=" + bno;
+							location.href = "./detail?no=" + bno + "&inout=" + inout;
 						} else {
 							alert("로그인 후 이용해주세요.");
 							location.href = "./login";
@@ -154,23 +139,16 @@
 		$(".commentLike2").click(function() {
 			let cno = $(this).prev().val();
 			let clike = $(this).siblings('.clike').val();
-			let bno = $
-			{
-				detail.no
-			}
-			;
+			let bno = ${detail.no};
+			let inout = ${param.inout};
 			$.ajax({
 				url : './commentLike',
 				type : 'post',
 				dataType : 'text',
-				data : {
-					no : cno,
-					clike : clike
-				},
+				data : {no : cno, clike : clike},
 				success : function(result) {
 					if (result == 1) {
-
-						location.href = "./detail?no=" + bno;
+						location.href = "./detail?no=" + bno + "&inout=" + inout;
 					} else {
 						alert("이미 추천하셨습니다.")
 
@@ -222,7 +200,7 @@
             </c:when>
             </c:choose> --%>
 
-	<div class="card text-center border-dark" style="width: 75rem;">
+	<div class="card text-center border-dark" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
 		<h5 class="card-header border-dark">${detail.title}</h5>
 		<div class="card-body">
 			<h6 class="card-subtitle mb-2 text-body-secondary">글쓴이:${detail.write}&nbsp;&nbsp;조회:${detail.count}&nbsp;&nbsp;추천:${detail.like }</h6>
@@ -299,8 +277,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="ccomment">${co.ccomment}</div>
-				<button id="reply">답글</button>
+				${co.ccomment}
 			</div>
 		</c:forEach>
 	</div>
