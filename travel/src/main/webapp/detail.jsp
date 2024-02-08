@@ -163,10 +163,13 @@
 
 	<header><%@ include file="menu.jsp"%></header>
 	<div class="backtoboard" style="margin: 0 auto; padding: 0 auto; float: left">
-		<button type="button" class="btn btn-outline-primary" onclick="selectBoard()">목록</button>
+		
 	</div>
-	<div class="card text-center border-dark" style="width: fit-content; margin: 0 auto; padding: 0 auto; justify-content: left; float: left">
-		<h5 class="card-header border-dark">${detail.title}</h5>
+	<div class="card text-center border-dark" style="min-width: 75rem; width: fit-content; margin: 0 auto; padding: 0 auto; justify-content: center">
+		<div>
+			<button type="button" class="btn btn-outline-primary" onclick="selectBoard()" style="float: left; margin: 5px 0px 0px 5px;">목록</button>
+			<div><h5 class="card-header border-dark">${detail.title}</h5></div>
+		</div>
 		<div class="card-body">
 			<h6 class="card-subtitle mb-2 text-body-secondary">글쓴이:${detail.write}&nbsp;&nbsp;조회:${detail.count}&nbsp;&nbsp;추천:${detail.like }</h6>
 			<p class="card-text">${detail.content}</p>
