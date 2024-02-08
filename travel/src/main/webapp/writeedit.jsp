@@ -18,10 +18,26 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 <link href="./css/menu.css" rel= "stylesheet"/>
 <script type="text/javascript" src="./js/menu.js"></script>
-
+<script type="text/javascript">
+function echeck(){// 글자 수 검사[민우]
+	var title = $(".form-control").val();
+	let content = $(".content").val();
+	let spaceremove = (title).replace(/\s/g,"");
+	let spacec = (content).replace(/&nbsp;|<p>|<\/p>|<br>|\s|" "/g,"");
+ 	if (spaceremove.length < 2 ) {
+		alert("제목은 2글자 이상으로 적어주세요.");
+		$(".form-control").focus();
+		return false;
+	}
+	 if (spacec.length < 2) {
+		alert("내용을 2글자 이상으로 적어주세요");
+		$(".content").focus();
+		return false; 
+	 }
+}
+</script>
 </head>
 <body>
 	<header>
@@ -35,10 +51,10 @@
 						
 			<div class="writeFORM">
 				<form action="./writeedit" method="post">
-					<input type="text" name="title" id="title" value="${write.title }">
-					<textarea id="summernote" name="content" >${write.content }</textarea>
-					<button type="submit" >수정</button>
-					<input type="number" name="no" value="${write.no }">
+					<input type="hidden" name="no" value="${write.no }">
+					<input type="text" class="form-control" id="exampleFormControlInput1" name ="title" value="${write.title }">
+					<textarea id="summernote" name="content" class="content">${write.content }</textarea>
+					<button type="submit" onclick="return echeck()">수정</button>
 				</form>
 				</div>
 			</article>
@@ -49,7 +65,16 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('#summernote').summernote({
-			height: 600
+			height: 600,
+			toolbar:[
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']], 
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert', ['link', 'picture', 'video']]
+			]
 		});
 	});
 	</script>
