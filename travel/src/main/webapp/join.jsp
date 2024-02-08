@@ -21,7 +21,7 @@
 }
 .join-box {
   margin:150px auto;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding:40px 30px;
   border:5px solid #0e0e0e;
