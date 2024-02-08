@@ -34,6 +34,7 @@
 			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0')">전체</button>
 			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=공지사항')">공지사항</button>
 			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=여행정보')">여행정보</button>
+			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=여행후기')">여행후기</button>
 			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=잡담')">잡담</button>
 		</div><br><br>
         <div>
@@ -67,6 +68,14 @@
      		 				<td>${row.like}</td></c:if>
     					</tr></c:forEach></c:when><c:when test="${param.category eq '여행정보'}"><c:forEach items="${list}" var="row">
    						<tr><c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '여행정보'}">
+  		    				<th scope="row">${row.no}</th>
+							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>  
+							<td>${row.write}</td>
+							<td>${row.date}</td>
+							<td>${row.count}</td>
+      						<td>${row.like}</td></c:if>
+						</tr></c:forEach></c:when><c:when test="${param.category eq '여행후기'}"><c:forEach items="${list}" var="row">
+   						<tr><c:if test="${row.inout eq 0 && row.del ne 0 && row.header eq '여행후기'}">
   		    				<th scope="row">${row.no}</th>
 							<td class="cursor" onclick="url('./detail?page=${page}&no=${row.no}&inout=${row.inout}')">[${row.header}] ${row.title} <span style="font-size: small;"><c:if test="${row.comment ne 0 }">[${row.comment }]</c:if></span></td>  
 							<td>${row.write}</td>

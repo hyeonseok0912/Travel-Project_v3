@@ -18,13 +18,39 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <style type="text/css">
-#title{
-	width:179rem;
+.mname{
+	width: 100%;
+	height:30px;
+	text-align: right;
+	padding-right: 30px;
+	padding-top: 17px;
+	background-color: white;
+	font-weight: bold;
+	
+}
+#abc{
+	height: 27px;
+	margin-left: 3px;
+}
+.text{
+	padding-top: 20px;
+
+}
+.btn-primary{
+	color: #0d6efd;
+    border-color: #0d6efd;
+    background-color: white;
+}
+.form-control{
+	margin-top: 3px;
+}
+.button{
+	margin: 4px;
 }
 </style>
 <script type="text/javascript">
 function check(){// 글자 수 검사[민우]
-	var title = document.getElementById("title");
+	var title = document.getElementById("exampleFormControlInput1");
 	var content = document.getElementsByClassName("content");
 	let spaceremove = (title.value).replace(/\s/g,"");
 	let spacec = (content[0].value).replace(/&nbsp;|<p>|<\/p>|<br>|\s|" "/g,"");
@@ -51,16 +77,19 @@ function check(){// 글자 수 검사[민우]
 				<div>
 					<form action="./write" method="post">
 						<input type="hidden" name="write" value="${param.write}">
-						<select name="category">
+						<select name="category" id="abc">
+							<c:if test="${sessionScope.mname eq '관리자'}">
 							<option value="공지사항" name="header">공지사항</option>
+							</c:if>
 							<option value="여행정보" name="header">여행정보</option>
 							<option value="잡담" name="header" selected="seleteted">잡담</option>
 							<option value="여행후기" name="header">여행후기</option>
 						</select>
-						<input type="text" name="title" id="title">
-						<textarea id="summernote" name="content" class="content"></textarea>
-						<button type="submit" onclick="return check()" class="btn btn-primary btn-lg">저장</button>
-						
+						<input type="text" class="form-control" id="exampleFormControlInput1" name ="title" placeholder="제목 2글자 이상 입력해주세요">
+						<!-- <input type="text" name="title" id="title"></div> -->
+						<div class="mname">${sessionScope.mname }</div>
+						<div class="text"><textarea id="summernote" name="content" class="content"></textarea></div>
+						<div class="button"><button type="submit" onclick="return check()" class="btn btn-primary btn-lg">저장</button></div>
  					</form>
 				</div>
 		</article>
@@ -68,7 +97,18 @@ function check(){// 글자 수 검사[민우]
 <script type="text/javascript">
 	$(function(){
 		$("#summernote").summernote({
-			height:600
+			height:600,
+			placeholder: '게시판 이용약관을 준수해주세요',
+			toolbar:[
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']], 
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert', ['link', 'picture', 'video']]
+			]
+
 		});
 	});
 </script>
