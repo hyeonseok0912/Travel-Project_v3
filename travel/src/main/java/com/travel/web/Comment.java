@@ -34,10 +34,6 @@ public class Comment extends HttpServlet {
 		HttpSession session = request.getSession(); // session 연결
 		int result = 0;
 
-		System.out.println(request.getParameter("commentcontent"));
-		System.out.println(request.getParameter("bno"));
-		System.out.println(session.getAttribute("mid"));
-
 		if (request.getParameter("commentcontent") != null && request.getParameter("bno") != null
 				&& session.getAttribute("mid") != null) {
 

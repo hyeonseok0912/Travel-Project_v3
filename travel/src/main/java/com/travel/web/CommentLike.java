@@ -17,39 +17,36 @@ import com.travel.util.Util;
 @WebServlet("/commentLike")
 public class CommentLike extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public CommentLike() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	public CommentLike() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int result = 0;
 		HttpSession session = request.getSession();
-		if(session.getAttribute("mid") != null && Util.intCheck(request.getParameter("no"))){
-			
-		
+		if (session.getAttribute("mid") != null && Util.intCheck(request.getParameter("no"))) {
+
 			CommentDTO dto = new CommentDTO();
-			dto.setMid((String)session.getAttribute("mid"));
-			
+			dto.setMid((String) session.getAttribute("mid"));
+
 			dto.setCno(Util.str2Int(request.getParameter("no")));
 			dto.setClike(Util.str2Int(request.getParameter("clike")));
-			
-			//System.out.println(session.getAttribute("mid"));
-			
-			System.out.println(request.getParameter("no"));
-			System.out.println(request.getParameter("clike"));
+
+			// System.out.println(session.getAttribute("mid"));
 
 			CommentDAO dao = new CommentDAO();
 			result = dao.commentLike(dto);
-			
-		
-		PrintWriter pw = response.getWriter();
-		pw.print(result);
-		
+
+			PrintWriter pw = response.getWriter();
+			pw.print(result);
+
 		}
 	}
 
