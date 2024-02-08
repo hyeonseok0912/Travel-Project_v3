@@ -30,7 +30,7 @@ public class Logout extends HttpServlet {
 		
 		session.invalidate();
 		
-		response.sendRedirect("/travel");
+		response.sendRedirect("/");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

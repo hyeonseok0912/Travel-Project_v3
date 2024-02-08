@@ -43,32 +43,36 @@
 }
 </style>
 <script type="text/javascript">
-
+let CHECK = false;
 $(function(){
 	let images = ['join.jpg']
 	$('body').css({'background-image' : 'url(./img/' + images + ')', "background-size": "cover"});
-	});
 
-
-	$(document).ready(function() {
    		$('form').submit(function(e) {
-        	e.preventDefault(); // 폼의 기본 동작을 막음
-        	$.ajax({
-            	url: $(this).attr('action'),
-            	type: 'POST',
-            	data: $(this).serialize(),
-            	success: function(result) {
-                	if (result == 1) {
-                    	alert('회원가입이 성공적으로 완료되었습니다.');
-                    	window.location.href = './login';
-                	} else {
-                    	alert('회원가입에 실패하였습니다.');
-                	}
-            	},
-            	error: function() {
-                	alert('서버와의 통신 중에 오류가 발생하였습니다.');
-            	}
-        	});
+   			
+   			if(!CHECK){
+   				alert("모든 확인을 마치고 진행해주세요.");
+   				return false;
+   			}else{
+   				e.preventDefault(); // 폼의 기본 동작을 막음
+   	        	$.ajax({
+   	            	url: $(this).attr('action'),
+   	            	type: 'POST',
+   	            	data: $(this).serialize(),
+   	            	success: function(result) {
+   	                	if (result == 1) {
+   	                    	alert('회원가입이 성공적으로 완료되었습니다.');
+   	                    	window.location.href = './login';
+   	                	} else {
+   	                    	alert('회원가입에 실패하였습니다.');
+   	                	}
+   	            	},
+   	            	error: function() {
+   	                	alert('서버와의 통신 중에 오류가 발생하였습니다.');
+   	            	}
+   	        	});
+   			}
+        
     	});
 	});
 
@@ -109,13 +113,13 @@ $(function(){
 		if (!idCheckBool) {
 			alert("ID검사를 먼저 진행해주세요.");
 			return false;
-		}
+		} 
 
 		let name = $('#name').val();
 		if (name.length < 2) {
-			alert("이름은 2글자 이상이어야 합니다.");
 			$('.name-alert').show();
 			$('#name').focus();
+			alert("이름은 2글자 이상이어야 합니다.");
 			return false;
 		}
 		$('.name-alert').hide();
@@ -134,6 +138,8 @@ $(function(){
 			$('#pw2').val("");
 			$('#pw2').focus();
 			return false;
+		} else {			
+			CHECK = true;
 		}
 	}
 
@@ -189,7 +195,7 @@ $(function(){
 						
 						<div class="join-box" style="justify-content: center;">
 						<div id="loginBoxTitle" style="margin: 0 auto; width: 700px">JOIN</div>
-							<form action="./join" method="post" onsubmit="return check()" style="width: 100px auto;">
+							<form action="./join" method="post" onsubmit="return check();" style="width: 100px auto;">
 								<div class="input-group mb-2" style="width: 700px; margin: 0 auto; padding: 0 auto;">
 									<label class="input-group-text">아이디</label>
 									<input type="text" id="id" name="id" class="form-control" placeholder="ID를 입력해주세요">
