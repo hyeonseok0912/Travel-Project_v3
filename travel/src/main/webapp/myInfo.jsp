@@ -14,6 +14,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<!-- jquery CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+function check(){
+	let pw1 = $("#newPW").val();
+	let pw2 = $("#newPWcheck").val();
+	if(pw1.length < 8 || pw1 == ""){
+		alert("암호는 8글자 이상이어야 합니다.");
+		$('#newPW').focus();
+		return false;
+	}
+	if(pw1 != pw2){
+		alert("암호는 동일해야 합니다.");
+		$('#newPWcheck').val("");
+		$('#newPWcheck').focus();
+		return false;
+	} else{
+		alert("암호가 수정되었습니다.")
+	}
+}
+</script>
+
+
 </head>
 <body>
    <header>
@@ -26,15 +50,31 @@
 		
       <article>
     	  <h2 class="myinfo">내 정보 관리</h2>
-         <form action="./myInfo" method="post" onsubmit="return check()">
-         	<div class=mid>아이디 : ${myInfo.mid }</div>
-         	<div class=mname>이름 : ${myInfo.mname }</div>
-        	<div class=mpw>새로운 비밀번호 입력 : 
-         		<input type="password" name="newPW" id="newPW" placeholder="새로운 비밀번호를 입력">
-         		<br>새로운 비밀번호 확인 : 
-         		<input type="password" name="newPWcheck" id="newPWcheck" placeholder="새로운 비밀번호를 확인">
-		        <button type="submit">수정하기</button>
-         </form>
+         	<form action="./myInfo" method="post" onsubmit="return check()">
+		   
+				<div class="input-group mb-3 w-25">
+					<span class="input-group-text fw-semibold" id="basic-addon1">아이디</span>
+					<input type="text" class="form-control" value="${myInfo.mid }" disabled readonly>
+				</div>
+
+				<div class="input-group mb-3 w-25">
+					<span class="input-group-text fw-semibold" id="basic-addon1">이&nbsp;&nbsp;&nbsp;름</span>
+					<input type="text" class="form-control" value="${myInfo.mname }" disabled readonly>
+				</div>
+
+				<div class="input-group mb-3 w-25">
+					<span class="input-group-text fw-semibold" id="basic-addon1">Password</span>
+					<input type="password" name="newPW" id="newPW" class="form-control" placeholder="PW를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+
+				<div class="input-group mb-3 w-25">
+					<span class="input-group-text fw-semibold" id="basic-addon1">Password 확인</span>
+					<input type="password" name="newPWcheck" id="newPWcheck" class="form-control" placeholder="PW를 한번 더 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+
+				<button type="submit" class="btn btn-outline-success">수정하기</button>
+		   
+			</form>
       </article>
       <hr>
       
@@ -98,11 +138,8 @@
       </article>
       
    </div>
+   
 <script type="text/javascript">
-$(".myinfo").next().hide();
-$(".myinfo").click(function(){
-	$(this).next().toggle("slow");
-});
 
 $("#myboardinfo").next().hide();
 $("#myboardinfo").click(function(){
