@@ -212,9 +212,15 @@ body {
       		<li class="list-group-item">
         		<div class="d-flex w-100 justify-content-between">
           		<h6 class="mb-1 fw-bold" style="width:100px">${co.mname }</h6>
-
+          		<small class="text-body-secondary" style="width: 120px;">${co.cdate } 
+          			<c:if test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
+        			<input type="hidden" class="cno" value="${co.cno }">
+        			<img class="commentDelete" alt="delete" src="./img/comment_del.png">
+     				</c:if>
+     			</small>
+          		
 					<div class='clike'>
-						<button type="button" class="btn btn-outline-danger btn-sm">
+						<button type="button" class="btn btn-outline-danger btn-sm" style="float: right;">
 							<c:choose>
 								<c:when test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
              					<img class="commentLike1" onclick="myComment()" alt="like" src="./img/like1.png">
@@ -235,13 +241,11 @@ body {
          	 		</div>
         		</div>
 
-        	<p class="mb-1">${co.ccomment}</p>
-        	<small class="text-body-secondary">${co.cdate }</small>
+        	<p class="mb-1" style="float:left;">${co.ccomment}</p>
+        	
+        	
 
-       	 	<c:if test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
-        		<input type="hidden" class="cno" value="${co.cno }">
-        		<img class="commentDelete" alt="delete" src="./img/comment_del.png">
-     		</c:if>
+       	 	
       		</li>
     	</ul>
   	</div>
