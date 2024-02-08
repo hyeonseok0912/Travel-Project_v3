@@ -7,7 +7,7 @@
 <title>상세보기</title>
 
 <!-- bootstrap 반응형 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
 <script type="text/javascript" src="./js/menu.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -158,26 +158,36 @@
 		});
 	});
 </script>
+<style type="text/css">
+body {
+  width: 100%;
+  }
+  div{
+  width: 100%;
+  }
+  .card-text img{
+  width: 100%;
+  }
+</style>
 </head>
 <body>
 
 	<header><%@ include file="menu.jsp"%></header>
-	<div class="backtoboard" style="margin: 0 auto; padding: 0 auto; float: left">
-		
-	</div>
+
 	<div class="card text-center border-dark" style="min-width: 75rem; width: fit-content; margin: 0 auto; padding: 0 auto; justify-content: center">
 		<div>
-			<button type="button" class="btn btn-outline-primary" onclick="selectBoard()" style="float: left; margin: 5px 0px 0px 5px;">목록</button>
-			<div><h5 class="card-header border-dark">${detail.title}</h5></div>
+			<button type="button" class="btn btn-outline-primary" onclick="selectBoard()" style="float:left; margin: 10px 0px 0px 5px;">목록</button>
+			<div><h5 style="text-align:center; height:55px; padding: 15px 58px 0px 0px; " class="card-header border-dark">${detail.title}</h5></div>
 		</div>
 		<div class="card-body">
 			<h6 class="card-subtitle mb-2 text-body-secondary">글쓴이:${detail.write}&nbsp;&nbsp;조회:${detail.count}&nbsp;&nbsp;추천:${detail.like }</h6>
 			<p class="card-text">${detail.content}</p>
 		</div>
 		<div class="card-footer border-dark">
+			<button type="button" class="btn btn-outline-primary" onclick="selectBoard()" style="margin: 0 auto; padding: 0 auto; float: left">목록</button>
 			<c:choose>
 				<c:when test="${sessionScope.mname ne null }">
-					<button type="button" class="btn btn-outline-danger btn-sm b_recommen" onclick="tboard_recomment()">
+					<button type="button" class="btn btn-outline-danger btn-sm b_recommen" onclick="tboard_recomment()" >
 						<img src="./img/like.png" alt="추천" height="20">&nbsp;<span class="badge text-bg-secondary">${detail.like }</span>
 					</button>
 				</c:when>
@@ -188,9 +198,6 @@
 			</c:if>
 		</div>
 	</div><br>
-	<div class="backtoboard" style="width: 75rem; margin: 0 auto; padding: 0 auto; float: left">
-		<button type="button" class="btn btn-outline-primary" onclick="selectBoard()">목록</button>
-	</div>
 	<div class="comment-write card" style="width: 75rem; margin: 0 auto; padding: 0 auto; justify-content: center">
 		<h5 class="card-header">댓글 남기기</h5>
 			<div class="comment-form card-body">
@@ -204,7 +211,7 @@
 		<ul class="list-group list-group-flush border-bottom">
       		<li class="list-group-item">
         		<div class="d-flex w-100 justify-content-between">
-          		<h6 class="mb-1 fw-bold">${co.mname }</h6>
+          		<h6 class="mb-1 fw-bold" style="width:100px">${co.mname }</h6>
 
 					<div class='clike'>
 						<button type="button" class="btn btn-outline-danger btn-sm">
@@ -226,8 +233,8 @@
           					</c:choose>
           				</button>
          	 		</div>
-
         		</div>
+
         	<p class="mb-1">${co.ccomment}</p>
         	<small class="text-body-secondary">${co.cdate }</small>
 
@@ -239,7 +246,5 @@
     	</ul>
   	</div>
   </c:forEach>
-
-
 </body>
 </html>
