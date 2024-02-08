@@ -29,7 +29,7 @@
 	<%@ include file="menu.jsp" %>
 	</header>
    <article>
-	   <h1>국내 여행 게시판</h1>
+	   <h1>국내로 떠나요</h1>
 		<div class="btn-group" role="group" aria-label="Basic outlined example">
 			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0')">전체</button>
 			<button type="button" class="btn btn-outline-primary" onclick="url('./inboard?write=0&category=공지사항')">공지사항</button>

@@ -31,7 +31,7 @@
 	<header>
 		<%@ include file="menu.jsp"%>
 	</header>
-	<h1>해외 여행 게시판</h1>
+	<h1>해외로 떠나요</h1>
 	<article>	
 		<div class="btn-group" role="group" aria-label="Basic outlined example">
 			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1')">전체</button>

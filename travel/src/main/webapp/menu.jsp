@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="./index">
-      <img src="./img/travel.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      <img src="./img/travel.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
