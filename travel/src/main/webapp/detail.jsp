@@ -191,6 +191,11 @@ body {
 						<img src="./img/like.png" alt="추천" height="20">&nbsp;<span class="badge text-bg-secondary">${detail.like }</span>
 					</button>
 				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-outline-danger btn-sm" onclick="needLogin()">
+						<img src="./img/like.png" alt="추천" height="20">&nbsp;<span class="badge text-bg-secondary">${detail.like }</span>
+					</button>
+				</c:otherwise>
 			</c:choose>
 			<c:if test="${detail.mid eq sessionScope.mid}">
 				<button type="button" class="btn btn-outline-success btn-sm" onclick="writeedit()">글 수정</button>
