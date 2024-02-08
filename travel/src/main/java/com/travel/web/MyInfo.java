@@ -78,7 +78,11 @@ public class MyInfo extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		int result = dao.newpw(dto);
 
-		System.out.println(result);
+		if(result == 1) {
+			response.sendRedirect("./myInfo");
+		} else {
+			response.sendRedirect("./error.jsp");
+		}
 
 	}
 
