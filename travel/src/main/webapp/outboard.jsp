@@ -37,7 +37,7 @@
 			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1')">전체</button>
 			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=공지사항')">공지사항</button>
 			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=여행정보')">여행정보</button>
-			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=여행후기')">여행정보</button>
+			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=여행후기')">여행후기</button>
 			<button type="button" class="btn btn-outline-warning" onclick="url('./outboard?write=1&category=잡담')">잡담</button>
 		</div><br><br>
 		<table class="table table-hover">
